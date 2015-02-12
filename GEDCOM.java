@@ -1,6 +1,6 @@
 /*
  * File Name: GEDCOM.java
- * Author: Keerthini Mahesh
+ * Team: Team 2 - Abhishek, Keerthini, Richa
  * Date Created: 02/08/2015
  */
 package CS513.stevens.edu;
