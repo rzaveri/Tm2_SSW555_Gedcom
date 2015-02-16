@@ -38,7 +38,7 @@ public class Main {
             br = new BufferedReader(fr);
             line = br.readLine();
             while(line  != null ) {
-            	if((!tag.equals("INDI")) || (!tag.equals("FAM"))){
+            	if(!(tag.equals("INDI") || tag.equals("FAM"))){
 	            	line = br.readLine();
 	            	if(line != null)
 	            		lineParts = line.trim().split(" ");
