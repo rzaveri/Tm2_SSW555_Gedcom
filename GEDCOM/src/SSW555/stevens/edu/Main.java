@@ -205,8 +205,10 @@ public class Main {
 	 * Prints Individuals and Families
 	 */
 	public static void printIndivAndFly(ArrayList<Individual> indiv, ArrayList<Family> fly){
-		System.out.println("Individuals");
-		System.out.println("Individual ID			Name");
+		String husbandName = "";
+		String wifeName = "";
+		System.out.println("----------Individuals----------");
+		System.out.println("Individual ID				Name");
 		for(int i=0; i< indiv.size(); i++){
 			Individual ind = new Individual();
 			ind = indiv.get(i);
@@ -214,12 +216,31 @@ public class Main {
 		}
 		
 		System.out.println("");
-		System.out.println("Families");
-		System.out.println("Family ID			Husband ID			Wife ID");
+		System.out.println("-----------Families-----------");
+		System.out.println("Family ID			  Husband Name			   Wife Name");
 		for(int i=0; i< fly.size(); i++){
 			Family family = new Family();
 			family = fly.get(i);
-			System.out.println(family.getId() + "		" + family.getHusbandId() + "       " + family.getWifeId());
+			husbandName = getIndividualNameById(family.getHusbandId(), indiv);
+			wifeName = getIndividualNameById(family.getWifeId(), indiv);
+			System.out.println(family.getId() + "		" + husbandName + "       		" + wifeName);
 		}
+	}
+	
+	/*
+	 * Get the name of the Individual by ID
+	 */
+	public static String getIndividualNameById(String id, ArrayList<Individual> indiv)
+	{
+		String indivName = "";
+		for(int i=0; i< indiv.size(); i++){
+			Individual ind = new Individual();
+			ind = indiv.get(i);
+			if(ind.getId().equals(id)){
+				indivName = ind.getName();
+				break;
+			}
+		}
+		return indivName;
 	}
 }
