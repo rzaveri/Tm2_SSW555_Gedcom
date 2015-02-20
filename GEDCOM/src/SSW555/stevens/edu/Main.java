@@ -19,8 +19,6 @@ public class Main {
     private static String level = "";
     private static String tag = "";
 	private static String arguments = "";
-
-	private static boolean readLineFlag = true;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
