@@ -1,7 +1,3 @@
-/*
-author Richa
-Project Version 2
-*/
 package SSW555.stevens.edu;
 
 import java.util.ArrayList;
@@ -17,16 +13,6 @@ public class Individual
 	private ArrayList<String> spouseInFamily;
 	private ArrayList<String> childInFamily;
 	
-//	public Individual() {
-//		this.setId("");
-//		this.setName("");
-//		this.setSex("");
-//		this.setBirthDate("");
-//		this.setDeathDate("");
-//		this.setSpouseInFamily(null);
-//		this.setChildInFamily(null);
-//	}
-
 	public String getName() {
 		return name;
 	}
