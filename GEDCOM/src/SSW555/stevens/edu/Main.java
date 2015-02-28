@@ -1,7 +1,7 @@
 /*
  * File Name: Main.java
- * Author: Keerthini Mahesh
- * Date Created: 02/14/2015
+ * Author: Richa Zaveri
+ * Date Created: 02/27/2015
  */
 package SSW555.stevens.edu;
 import java.io.BufferedReader;
@@ -19,8 +19,6 @@ public class Main {
     private static String level = "";
     private static String tag = "";
 	private static String arguments = "";
-
-	private static boolean readLineFlag = true;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -117,8 +115,7 @@ public class Main {
 					fly.setId(xrefID);
 					line = br.readLine();
 					lineParts = line.trim().split(" ");
-					getLineParts(lineParts);  
-					while(tag.equals("HUSB") || tag.equals("WIFE")){						
+					getLineParts(lineParts);  					while(tag.equals("HUSB") || tag.equals("WIFE") || tag.equals("MARR") || tag.equals("DIV")){						
 						switch(tag) {
 							case "HUSB": 
 								fly.setHusbandId(arguments);
@@ -126,6 +123,19 @@ public class Main {
 							case "WIFE":
 								fly.setWifeId(arguments);
 								break;
+                                                        case "MARR":
+                                                                line = br.readLine();
+								lineParts = line.trim().split(" ");
+								getLineParts(lineParts);
+								fly.setMarriageDate(arguments);
+
+                                                                break;
+                                                        case "DIV":
+                                                                line = br.readLine();
+								lineParts = line.trim().split(" ");
+								getLineParts(lineParts);
+                                                                fly.setDivorceDate(arguments);
+                                                                break;
 							default:System.out.println("Missed Line: " + line);
 								break;
 						}
@@ -176,7 +186,7 @@ public class Main {
 		else{
 			tag =(String)aLines[1];
 			switch(aLines.length) {
-			case 5: arguments = (String)aLines[2] + " " + (String)aLines[3] + (String)aLines[4] ;
+			case 5: arguments = (String)aLines[2] + " " + (String)aLines[3] + " " + (String)aLines[4] ;
 			break;
 			case 4: arguments = (String)aLines[2] + " " + (String)aLines[3];
 				break;
@@ -207,6 +217,7 @@ public class Main {
 	public static void printIndivAndFly(ArrayList<Individual> indiv, ArrayList<Family> fly){
 		String husbandName = "";
 		String wifeName = "";
+                
 		System.out.println("----------Individuals----------");
 		System.out.println("Individual ID				Name");
 		for(int i=0; i< indiv.size(); i++){
@@ -217,13 +228,20 @@ public class Main {
 		
 		System.out.println("");
 		System.out.println("-----------Families-----------");
-		System.out.println("Family ID			  Husband Name			   Wife Name");
+		//System.out.println("Family ID \t\t\t Husband Name \t\t Wife Name");
+                System.out.println(String.format("%-27s", "Family ID") + "  "+ String.format("%-22s", "Husband Name") + "  "+ String.format("%-30s", "Wife Name") + " " + String.format("%-20s", "Marriage Date") + " " + String.format("%1s","Divorce Date"));
+                       
 		for(int i=0; i< fly.size(); i++){
 			Family family = new Family();
 			family = fly.get(i);
 			husbandName = getIndividualNameById(family.getHusbandId(), indiv);
 			wifeName = getIndividualNameById(family.getWifeId(), indiv);
-			System.out.println(family.getId() + "		" + husbandName + "       		" + wifeName);
+                       
+			//System.out.println(family.getId() + "\t\t" + husbandName + "\t\t" + wifeName + "\n");
+                        //System.out.printf("%20s %10s %15s \n", family.getId(),husbandName, wifeName);
+                        
+                         System.out.println( String.format("%-27s", family.getId()) + "  "+ String.format("%-22s", husbandName) + "  "+ String.format("%-30s", wifeName)+ "  " + String.format("%-30s",family.getMarriageDate()+ "  " + String.format("%18s",family.getDivorceDate()))); 
+                       
 		}
 	}
 	

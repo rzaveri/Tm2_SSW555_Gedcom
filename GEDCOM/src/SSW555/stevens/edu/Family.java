@@ -1,4 +1,4 @@
-//author:Abhishek Shah
+//author: Richa Zaveri
 package SSW555.stevens.edu;
 
 public class Family 
@@ -6,6 +6,8 @@ public class Family
 	private String id;
 	private String husbandId;
 	private String wifeId;
+        private String marriageDate;
+        private String divorceDate;
 	
 	public String getId() {
 		return id;
@@ -25,5 +27,17 @@ public class Family
 	public void setWifeId(String wifeId) {
 		this.wifeId = wifeId;
 	}
+        public String getMarriageDate() {
+            return marriageDate;
+        }
+         public void setMarriageDate(String marriageDate) {
+            this.marriageDate = marriageDate;
+         }
+        public String getDivorceDate() {
+            return divorceDate;
+        }
+         public void setDivorceDate(String divorceDate) {
+            this.divorceDate = divorceDate;
+        }
 }
 
