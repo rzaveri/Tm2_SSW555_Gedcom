@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Utilities {
 	/*convert string to date
-	 * @input: string
+	 * @input: String
 	 * @output: date
 	 */
 	public static Date convertStringToDate(String date) {
@@ -41,7 +41,7 @@ public class Utilities {
 	
 	
 	/*
-	 * Returns true if Birth Date after Current date
+	 * Check for Birth Date after Current date
 	 * @input: birth date
 	 * @output: boolean
 	 */
@@ -55,7 +55,7 @@ public class Utilities {
 	}
 	
 	/*
-	 * Returns true if Death Date after Current date
+	 * Check for Death Date after Current date
 	 * @input: death date
 	 * @output: boolean
 	 */
@@ -70,7 +70,8 @@ public class Utilities {
 	
 	/*
 	 * Returns true if Marriage Date after Current date
-	 
+	 * @input: Marriage date
+	 * @output: boolean
 	 */
 	public static boolean checkMarriageDateAfterCurrentDate(Date marriageDate) {
 		Date currentDate = new Date();
@@ -82,7 +83,7 @@ public class Utilities {
 	}
 	
 	/*
-	 * Returns true if Divorce Date after Current date
+	 * Check Divorce Date after Current date
 	 * @input: divorce date
 	 * @output: boolean
 	 */
