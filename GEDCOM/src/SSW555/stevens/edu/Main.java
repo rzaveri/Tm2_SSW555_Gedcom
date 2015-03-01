@@ -164,6 +164,8 @@ public class Main {
 				}		
             }
             printIndivAndFly(indivList, familyList);
+            displayErrors(indivList, familyList);
+            
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + inputFile.toString());
         } catch (IOException e) {
@@ -235,7 +237,7 @@ public class Main {
 		String husbandName, wifeName;
 		Individual ind;
 		Family family;
-		System.out.println("----------Individuals----------");
+		System.out.println("--------------------Summary of Individuals--------------------");
 		System.out.println();
 		
 		for(int i=0; i< indiv.size(); i++){
@@ -247,8 +249,9 @@ public class Main {
 				System.out.println("Name: "  + ind.getName());
 			if (ind.getSex() != null) 
 				System.out.println("SEX: "  + ind.getSex());
-			if (ind.getBirthDate() != null) 
+			if (ind.getBirthDate() != null) {
 				System.out.println("Birth Date: "  + ind.getBirthDate());
+			}
 			if (ind.getDeathDate() != null) 
 				System.out.println("Death Date: "  + ind.getDeathDate());
 			if (ind.getChildInFamily() != null) {
@@ -265,12 +268,12 @@ public class Main {
 					System.out.print(spouseInFamilies.get(k) + "	");
 				System.out.println();
 			}
+			
 			System.out.println();
 		}
 		
-		System.out.println(".....................................................................................");
 		System.out.println();
-		System.out.println("-----------Families-----------");
+		System.out.println("---------------------Summary of Families---------------------");
 		System.out.println();
 		for(int i=0; i< fly.size(); i++){
 			family = new Family();
@@ -315,5 +318,38 @@ public class Main {
 			}
 		}
 		return indivName;
+	}
+	
+	public static void displayErrors(ArrayList<Individual> indiv, ArrayList<Family> fly) {
+		Individual ind;
+		Family family;
+		System.out.println("!!!--------------------------- Summary of Errors-------------------------------!!!");
+		System.out.println();
+		
+		for(int i=0; i< indiv.size(); i++){
+			ind = new Individual();
+			ind = indiv.get(i);
+			
+			//Checks for Birth date after Current date
+			if(Utilities.checkBirthDateAfterCurrentDate(Utilities.convertStringToDate(ind.getBirthDate())))
+				System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Birth date (" + ind.getBirthDate() +") after Current date!" );
+			
+			//Checks for Death date after Current date
+			if(ind.getDeathDate() != null && Utilities.checkDeathDateAfterCurrentDate(Utilities.convertStringToDate(ind.getDeathDate())))
+				System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Death date (" + ind.getDeathDate() +") after Current date!" );			
+		}
+		
+		for(int j=0; j< fly.size(); j++){
+			family = new Family();
+			family = fly.get(j);
+			
+			//Checks for Marriage date after Current date
+			if(family.getMarriageDate() != null && Utilities.checkMarriageDateAfterCurrentDate(Utilities.convertStringToDate(family.getMarriageDate())))
+				System.out.println("Error - Family " + family.getId() + " has Marriage date (" + family.getMarriageDate() +") after Current date!" );
+			
+			//Checks for Divorce date after Current date
+			if(family.getDivorceDate() != null && Utilities.checkDeathDateAfterCurrentDate(Utilities.convertStringToDate(family.getDivorceDate())))
+				System.out.println("Error - Family " + family.getId() + " has Divorce date (" + family.getDivorceDate() +") after Current date!" );	
+		}
 	}
 }
