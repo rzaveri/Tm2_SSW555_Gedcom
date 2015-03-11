@@ -4,8 +4,14 @@ import java.text.ParseException;
 import java.util.Date;
 
 public class Utilities {
+<<<<<<< HEAD
 	/*
 	 * Converts String to Date type
+=======
+	/*convert string to date
+	 * @input: String
+	 * @output: date
+>>>>>>> origin/master
 	 */
 	public static Date convertStringToDate(String date) {
 		Date convertedDate = null;
@@ -38,8 +44,16 @@ public class Utilities {
     	return compareValue;
 	}
 	
+<<<<<<< HEAD
 	/*
 	 * Returns true if Birth Date after Current date
+=======
+	
+	/*
+	 * Check for Birth Date after Current date
+	 * @input: birth date
+	 * @output: boolean
+>>>>>>> origin/master
 	 */
 	public static boolean checkBirthDateAfterCurrentDate(Date birthDate) {
 		Date currentDate = new Date();
@@ -51,7 +65,13 @@ public class Utilities {
 	}
 	
 	/*
+<<<<<<< HEAD
 	 * Returns true if Death Date after Current date
+=======
+	 * Check for Death Date after Current date
+	 * @input: death date
+	 * @output: boolean
+>>>>>>> origin/master
 	 */
 	public static boolean checkDeathDateAfterCurrentDate(Date deathDate) {
 		Date currentDate = new Date();
@@ -64,6 +84,11 @@ public class Utilities {
 	
 	/*
 	 * Returns true if Marriage Date after Current date
+<<<<<<< HEAD
+=======
+	 * @input: Marriage date
+	 * @output: boolean
+>>>>>>> origin/master
 	 */
 	public static boolean checkMarriageDateAfterCurrentDate(Date marriageDate) {
 		Date currentDate = new Date();
@@ -75,7 +100,13 @@ public class Utilities {
 	}
 	
 	/*
+<<<<<<< HEAD
 	 * Returns true if Divorce Date after Current date
+=======
+	 * Check Divorce Date after Current date
+	 * @input: divorce date
+	 * @output: boolean
+>>>>>>> origin/master
 	 */
 	public static boolean checkDivorceDateAfterCurrentDate(Date divorceDate) {
 		Date currentDate = new Date();
