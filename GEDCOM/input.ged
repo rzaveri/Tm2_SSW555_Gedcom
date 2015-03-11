@@ -1,9 +1,10 @@
 0 NOTE Tm2_SSW555_Gedcom
+0 NOTE I1 has Birth date after Current date
 0 @I1@ INDI
  1 NAME Keerthini /Mahesh/
  1 SEX F
  1 BIRT
-  2 DATE 18 MAR 1988
+  2 DATE 18 MAR 2016
  1 FAMC @F2@
  1 FAMS @F1@
 0 @I2@ INDI
@@ -63,13 +64,14 @@
  1 BIRT
   2 DATE 1 MAY 2014
  1 FAMC @F4@
+0 NOTE I11 has Death date after Current date
 0 @I11@ INDI
  1 NAME John /Mathew/
  1 SEX M
  1 BIRT
   2 DATE 15 MAR 1982
  1 DEAT
-  2 DATE 20 MAR 2014
+  2 DATE 20 MAR 2016
  1 FAMS @F5@
 0 @I12@ INDI
  1 NAME Johana /Mathew/
@@ -77,11 +79,13 @@
  1 BIRT
   2 DATE 3 MAR 2013
  1 FAMC @F5@
+0 NOTE F1 has Marriage date after Current date
 0 @F1@ FAM
  1 HUSB @I2@
  1 WIFE @I1@
  1 MARR
-  2 DATE 28 NOV 2013
+  2 DATE 28 NOV 2016
+0 NOTE F2 has Divorce date after Current date
 0 @F2@ FAM
  1 WIFE @I3@
  1 HUSB @I4@
@@ -89,7 +93,7 @@
  1 CHIL @I5@
  1 CHIL @I6@
 1 DIV
-  2 DATE 27 FEB 2015
+  2 DATE 27 FEB 2016
 0 @F3@ FAM
  1 WIFE @I7@
  1 HUSB @I8@

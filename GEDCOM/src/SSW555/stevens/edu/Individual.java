@@ -3,8 +3,7 @@ package SSW555.stevens.edu;
 import java.util.ArrayList;
 
 public class Individual 
-{
-	
+{	
 	private String id;
 	private String name;
 	private String sex;
@@ -67,5 +66,22 @@ public class Individual
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/*
+	 * Get the name of the Individual by ID
+	 */
+	public static String getIndividualNameById(String id, ArrayList<Individual> indiv)
+	{
+		String indivName = "";
+		for(int i=0; i< indiv.size(); i++){
+			Individual ind = new Individual();
+			ind = indiv.get(i);
+			if(ind.getId().equals(id)){
+				indivName = ind.getName();
+				break;
+			}
+		}
+		return indivName;
 	}
 }

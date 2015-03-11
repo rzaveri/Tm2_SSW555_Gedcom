@@ -29,10 +29,6 @@ public class Main {
 		ArrayList<Individual> indivList = new ArrayList<Individual>();
 		ArrayList<Family> familyList = new ArrayList<Family>();
 		
-		ArrayList<String> newChildInFlyList;
-		ArrayList<String> newSpouseInFlyList;
-		ArrayList<String> newChildren;
-
 		BufferedReader br = null;
         try {
         	FileReader fr = new FileReader(inputFile);  		
@@ -48,119 +44,12 @@ public class Main {
             	
             	//Store Individuals Information
 				if (tag.equals("INDI")) {
-					// get new individual
-					Individual indiv = new Individual();
-					indiv.setId(xrefID);
-					line = br.readLine();
-					lineParts = line.trim().split(" ");
-					getLineParts(lineParts);  
-					
-					while(tag.equals("NAME") || tag.equals("SEX") || tag.equals("BIRT")|| tag.equals("DEAT")|| tag.equals("FAMC")|| tag.equals("FAMS")){
-						
-						switch(tag) {
-							case "NAME":
-								indiv.setName(line.substring(7));
-								break;
-							
-							case "SEX":
-								indiv.setSex(arguments);
-								break;
-							
-							case "BIRT":
-								line = br.readLine();
-								lineParts = line.trim().split(" ");
-								getLineParts(lineParts);
-								indiv.setBirthDate(arguments);
-								break;
-							
-							case "DEAT":
-								line = br.readLine();
-								lineParts = line.trim().split(" ");
-								getLineParts(lineParts);
-								indiv.setDeathDate(arguments);
-								break;
-							
-							case "FAMC":
-								if(indiv.getChildInFamily() != null) 
-									newChildInFlyList =  indiv.getChildInFamily();								
-								else 
-									newChildInFlyList = new ArrayList<String>();													
-
-								newChildInFlyList.add(arguments);
-								indiv.setChildInFamily(newChildInFlyList);
-								break;
-							
-							case "FAMS":
-								if(indiv.getSpouseInFamily() != null) 
-									newSpouseInFlyList =  indiv.getSpouseInFamily();								
-								else 
-									newSpouseInFlyList = new ArrayList<String>();	
-								
-								newSpouseInFlyList.add(arguments);
-								indiv.setSpouseInFamily(newSpouseInFlyList);
-								break;
-							
-							default:System.out.println("Missed Line: " + line);
-								break;
-						}					
-						line = br.readLine();
-						lineParts = line.trim().split(" ");
-						getLineParts(lineParts);    
-						
-					}
-					indivList.add(indiv);
+					storeIndividualDetails(indivList, br);
 				}
 
 				//Store Family Information
 				else if(tag.equals("FAM")) {
-					//get new Family
-					Family fly = new Family();
-					fly.setId(xrefID);
-					line = br.readLine();
-					lineParts = line.trim().split(" ");
-					getLineParts(lineParts);  
-					while(tag.equals("HUSB") || tag.equals("WIFE") || tag.equals("MARR") || tag.equals("DIV") || tag.equals("CHIL")){						
-						switch(tag) {
-							case "HUSB": 
-								fly.setHusbandId(arguments);
-								break;
-								
-							case "WIFE":
-								fly.setWifeId(arguments);
-								break;
-								
-							case "MARR":
-								line = br.readLine();
-								lineParts = line.trim().split(" ");
-								getLineParts(lineParts);
-								fly.setMarriageDate(arguments);
-								break;
-							
-							case "DIV":
-								line = br.readLine();
-								lineParts = line.trim().split(" ");
-								getLineParts(lineParts);
-								fly.setDivorceDate(arguments);
-								break;
-								
-							case "CHIL":
-								if(fly.getChildren() != null) 
-									newChildren =  fly.getChildren();								
-								else 
-									newChildren = new ArrayList<String>();	
-								
-								newChildren.add(arguments);
-								fly.setChildren(newChildren);
-								break;
-								
-							default:System.out.println("Missed Line: " + line);
-								break;
-						}
-						line = br.readLine();
-						lineParts = line.trim().split(" ");
-						getLineParts(lineParts);    
-					}
-					familyList.add(fly);
+					storeFamilyDetails(familyList, br);
 				}		
             }
             printIndivAndFly(indivList, familyList);
@@ -180,36 +69,152 @@ public class Main {
             } catch (IOException e) {
                 System.out.println("Unable to close file: " + inputFile.toString());
             }
-            catch(NullPointerException ex) {
-            }
         }    
+	}
+
+	private static void storeIndividualDetails(ArrayList<Individual> indivList,	BufferedReader br) throws IOException {
+		ArrayList<String> newChildInFlyList;
+		ArrayList<String> newSpouseInFlyList;
+		// get new individual
+		Individual indiv = new Individual();
+		indiv.setId(xrefID);
+		line = br.readLine();
+		lineParts = line.trim().split(" ");
+		getLineParts(lineParts);  
+		
+		while(tag.equals("NAME") || tag.equals("SEX") || tag.equals("BIRT")|| tag.equals("DEAT")|| tag.equals("FAMC")|| tag.equals("FAMS")){
+			
+			switch(tag) {
+				case "NAME":
+					indiv.setName(line.substring(7));
+					break;
+				
+				case "SEX":
+					indiv.setSex(arguments);
+					break;
+				
+				case "BIRT":
+					line = br.readLine();
+					lineParts = line.trim().split(" ");
+					getLineParts(lineParts);
+					indiv.setBirthDate(arguments);
+					break;
+				
+				case "DEAT":
+					line = br.readLine();
+					lineParts = line.trim().split(" ");
+					getLineParts(lineParts);
+					indiv.setDeathDate(arguments);
+					break;
+				
+				case "FAMC":
+					if(indiv.getChildInFamily() != null) 
+						newChildInFlyList =  indiv.getChildInFamily();								
+					else 
+						newChildInFlyList = new ArrayList<String>();													
+
+					newChildInFlyList.add(arguments);
+					indiv.setChildInFamily(newChildInFlyList);
+					break;
+				
+				case "FAMS":
+					if(indiv.getSpouseInFamily() != null) 
+						newSpouseInFlyList =  indiv.getSpouseInFamily();								
+					else 
+						newSpouseInFlyList = new ArrayList<String>();	
+					
+					newSpouseInFlyList.add(arguments);
+					indiv.setSpouseInFamily(newSpouseInFlyList);
+					break;
+				
+				default:System.out.println("Missed Line: " + line);
+					break;
+			}					
+			line = br.readLine();
+			lineParts = line.trim().split(" ");
+			getLineParts(lineParts);    
+			
+		}
+		indivList.add(indiv);
+	}
+	
+	private static void storeFamilyDetails(ArrayList<Family> familyList, BufferedReader br) throws IOException {
+		ArrayList<String> newChildren;
+		//get new Family
+		Family fly = new Family();
+		fly.setId(xrefID);
+		line = br.readLine();
+		lineParts = line.trim().split(" ");
+		getLineParts(lineParts);  
+		while(tag.equals("HUSB") || tag.equals("WIFE") || tag.equals("MARR") || tag.equals("DIV") || tag.equals("CHIL")){						
+			switch(tag) {
+				case "HUSB": 
+					fly.setHusbandId(arguments);
+					break;
+					
+				case "WIFE":
+					fly.setWifeId(arguments);
+					break;
+					
+				case "MARR":
+					line = br.readLine();
+					lineParts = line.trim().split(" ");
+					getLineParts(lineParts);
+					fly.setMarriageDate(arguments);
+					break;
+				
+				case "DIV":
+					line = br.readLine();
+					lineParts = line.trim().split(" ");
+					getLineParts(lineParts);
+					fly.setDivorceDate(arguments);
+					break;
+					
+				case "CHIL":
+					if(fly.getChildren() != null) 
+						newChildren =  fly.getChildren();								
+					else 
+						newChildren = new ArrayList<String>();	
+					
+					newChildren.add(arguments);
+					fly.setChildren(newChildren);
+					break;
+					
+				default:System.out.println("Missed Line: " + line);
+					break;
+			}
+			line = br.readLine();
+			lineParts = line.trim().split(" ");
+			getLineParts(lineParts);    
+		}
+		familyList.add(fly);
 	}
 
 	/*
 	 * Gets parts of the line
 	 */
-	public static void getLineParts(String[] aLines)
+	public static void getLineParts(String[] lineParts)
 	{
-		level = (String)aLines[0];
+		level = (String)lineParts[0];
 		
 		//Check for 2 kinds of lines that start with 0 level and assign tags appropriately
 		if(level.equals("0")) {
-			if(aLines.length == 3) {
-				tag =(String)aLines[2];
-				xrefID = (String) aLines[1];
+			if(lineParts.length == 3) {
+				tag =(String)lineParts[2];
+				xrefID = (String) lineParts[1];
 			}
 			else{
-				tag = (String)aLines[1];
+				tag = (String)lineParts[1];
 			}
 		}
 		else{
-			tag =(String)aLines[1];
-			switch(aLines.length) {
-			case 5: arguments = (String)aLines[2] + " " + (String)aLines[3] + " " + (String)aLines[4] ;
+			tag =(String)lineParts[1];
+			switch(lineParts.length) {
+			case 5: arguments = (String)lineParts[2] + " " + (String)lineParts[3] + " " + (String)lineParts[4] ;
 			break;
-			case 4: arguments = (String)aLines[2] + " " + (String)aLines[3];
+			case 4: arguments = (String)lineParts[2] + " " + (String)lineParts[3];
 				break;
-			case 3:arguments = (String) aLines[2];
+			case 3:arguments = (String) lineParts[2];
 				break;
 			default: arguments = " ";
 				break;
@@ -234,9 +239,13 @@ public class Main {
 	 * Prints Individuals and Families
 	 */
 	public static void printIndivAndFly(ArrayList<Individual> indiv, ArrayList<Family> fly){
-		String husbandName, wifeName;
+		printIndividualSummary(indiv);	
+		System.out.println();
+		printFamilySummary(indiv, fly);
+	}
+
+	private static void printIndividualSummary(ArrayList<Individual> indiv) {
 		Individual ind;
-		Family family;
 		System.out.println("--------------------Summary of Individuals--------------------");
 		System.out.println();
 		
@@ -271,8 +280,12 @@ public class Main {
 			
 			System.out.println();
 		}
-		
-		System.out.println();
+	}
+	
+	private static void printFamilySummary(ArrayList<Individual> indiv,	ArrayList<Family> fly) {
+		String husbandName;
+		String wifeName;
+		Family family;
 		System.out.println("---------------------Summary of Families---------------------");
 		System.out.println();
 		for(int i=0; i< fly.size(); i++){
@@ -281,11 +294,11 @@ public class Main {
 			if(family.getId() != null)
 				System.out.println("ID: "  +  family.getId());
 			if(family.getHusbandId() != null) {
-				husbandName = getIndividualNameById(family.getHusbandId(), indiv);
+				husbandName = Individual.getIndividualNameById(family.getHusbandId(), indiv);
 				System.out.println("Husband Name: "  + husbandName);
 			}
 			if(family.getWifeId() != null) {
-				wifeName = getIndividualNameById(family.getWifeId(), indiv);
+				wifeName = Individual.getIndividualNameById(family.getWifeId(), indiv);
 				System.out.println("Wife Name: "  + wifeName);
 			}
 			if(family.getMarriageDate() != null)
@@ -302,30 +315,16 @@ public class Main {
 			System.out.println();
 		}
 	}
-	
-	/*
-	 * Get the name of the Individual by ID
-	 */
-	public static String getIndividualNameById(String id, ArrayList<Individual> indiv)
-	{
-		String indivName = "";
-		for(int i=0; i< indiv.size(); i++){
-			Individual ind = new Individual();
-			ind = indiv.get(i);
-			if(ind.getId().equals(id)){
-				indivName = ind.getName();
-				break;
-			}
-		}
-		return indivName;
+
+	public static void displayErrors(ArrayList<Individual> indiv, ArrayList<Family> fly) {
+		System.out.println("!!!--------------------------- Summary of Errors-------------------------------!!!");
+		System.out.println();	
+		displayErrorsOfIndividuals(indiv);	
+		displayErrorsOfFamilies(fly);
 	}
 	
-	public static void displayErrors(ArrayList<Individual> indiv, ArrayList<Family> fly) {
+	private static void displayErrorsOfIndividuals(ArrayList<Individual> indiv) {
 		Individual ind;
-		Family family;
-		System.out.println("!!!--------------------------- Summary of Errors-------------------------------!!!");
-		System.out.println();
-		
 		for(int i=0; i< indiv.size(); i++){
 			ind = new Individual();
 			ind = indiv.get(i);
@@ -338,7 +337,10 @@ public class Main {
 			if(ind.getDeathDate() != null && Utilities.checkDeathDateAfterCurrentDate(Utilities.convertStringToDate(ind.getDeathDate())))
 				System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Death date (" + ind.getDeathDate() +") after Current date!" );			
 		}
-		
+	}
+	
+	private static void displayErrorsOfFamilies(ArrayList<Family> fly) {
+		Family family;
 		for(int j=0; j< fly.size(); j++){
 			family = new Family();
 			family = fly.get(j);
