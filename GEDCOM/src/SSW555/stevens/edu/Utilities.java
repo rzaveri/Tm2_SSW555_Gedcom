@@ -1,12 +1,17 @@
 package SSW555.stevens.edu;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Utilities {
+<<<<<<< HEAD
 	/*
 	 * Converts String to Date type
+=======
+	/*convert string to date
+	 * @input: String
+	 * @output: date
+>>>>>>> origin/master
 	 */
 	public static Date convertStringToDate(String date) {
 		Date convertedDate = null;
@@ -39,8 +44,16 @@ public class Utilities {
     	return compareValue;
 	}
 	
+<<<<<<< HEAD
 	/*
 	 * Returns true if Birth Date after Current date
+=======
+	
+	/*
+	 * Check for Birth Date after Current date
+	 * @input: birth date
+	 * @output: boolean
+>>>>>>> origin/master
 	 */
 	public static boolean checkBirthDateAfterCurrentDate(Date birthDate) {
 		Date currentDate = new Date();
@@ -52,7 +65,13 @@ public class Utilities {
 	}
 	
 	/*
+<<<<<<< HEAD
 	 * Returns true if Death Date after Current date
+=======
+	 * Check for Death Date after Current date
+	 * @input: death date
+	 * @output: boolean
+>>>>>>> origin/master
 	 */
 	public static boolean checkDeathDateAfterCurrentDate(Date deathDate) {
 		Date currentDate = new Date();
@@ -65,6 +84,11 @@ public class Utilities {
 	
 	/*
 	 * Returns true if Marriage Date after Current date
+<<<<<<< HEAD
+=======
+	 * @input: Marriage date
+	 * @output: boolean
+>>>>>>> origin/master
 	 */
 	public static boolean checkMarriageDateAfterCurrentDate(Date marriageDate) {
 		Date currentDate = new Date();
@@ -76,7 +100,13 @@ public class Utilities {
 	}
 	
 	/*
+<<<<<<< HEAD
 	 * Returns true if Divorce Date after Current date
+=======
+	 * Check Divorce Date after Current date
+	 * @input: divorce date
+	 * @output: boolean
+>>>>>>> origin/master
 	 */
 	public static boolean checkDivorceDateAfterCurrentDate(Date divorceDate) {
 		Date currentDate = new Date();
@@ -86,54 +116,4 @@ public class Utilities {
 		else
 			return false;
 	}
-	
-	/*
-	 * Returns true if Divorce Date before Marriage date
-	 */
-	public static boolean checkDivorceDateBeforeMarriageDate(Date divorceDate, Date marriageDate) {
-		int compareValue = compareDates(divorceDate, marriageDate);
-		if(compareValue == 1)
-			return true;
-		else
-			return false;
-	}
-	
-	public static void checkIfMarriedToOwnChild(ArrayList<Individual> indiv, Family family) {
-		String husbandId, wifeId, childId;
-		ArrayList<String> children;
-		
-		if(family.getHusbandId() != null && family.getWifeId() != null && family.getChildren() != null) {
-			husbandId = family.getHusbandId();	
-			wifeId = family.getWifeId();			
-			children = family.getChildren();
-		
-			for(int j= 0; j< children.size(); j++) {
-				childId = children.get(j);
-				if(childId.equals(husbandId)) {
-					System.out.println("Error - Family " + family.getId() + " has wife " + wifeId + " ("+ Individual.getIndividualNameById(wifeId, indiv) + ") married to her own child " + childId + " (" + Individual.getIndividualNameById(childId, indiv) + ")");					
-				}
-				if(childId.equals(wifeId)) {
-					System.out.println("Error - Family " + family.getId() + " has husband " + husbandId + " (" + Individual.getIndividualNameById(husbandId, indiv) + ") married to his own child " + " (" + Individual.getIndividualNameById(childId, indiv) + ")");					
-				}
-			}
-		}
-	}
-	
-    public static boolean checkDeathDateAfterBirthDate(Date birthDate, Date deathDate)
-    {
-        int compareValue = compareDates(birthDate,deathDate);
-                if(compareValue==2)
-                    return true;
-                else
-                    return false;
-    }
-    
-    public static boolean checkMarriageDateBeforeBirthDate(Date MarriageDate, Date birthDate)
-    {
-        int compareValue = compareDates(birthDate,MarriageDate);
-                if(compareValue==2)
-                    return true;
-                else
-                    return false;
-    }
 }
