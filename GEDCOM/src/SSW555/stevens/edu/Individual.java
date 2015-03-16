@@ -98,4 +98,19 @@ public class Individual
 		}
 		return indivSex;
 	}
+	
+	 public static String getIndividualBirthDateById(String id, ArrayList<Individual> indiv)
+	{
+		String indivBirthDate = "";
+		for(int i=0; i< indiv.size(); i++){
+			Individual ind = new Individual();
+			ind = indiv.get(i);
+			if(ind.getId().equals(id)){
+				indivBirthDate = ind.getBirthDate();
+				break;
+			}
+		}
+		return indivBirthDate;
+	}
+        
 }
