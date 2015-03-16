@@ -359,6 +359,7 @@ public class Main {
 		System.out.println();	
 		displayErrorsOfIndividuals(indiv);	
 		displayErrorsOfFamilies(indiv, fly);
+		displayErrorsOfFamiliesIndividuals(indiv,fly);
 	}
 	
 	private static void displayErrorsOfIndividuals(ArrayList<Individual> indiv) {
@@ -401,5 +402,32 @@ public class Main {
 			Utilities.checkIfMarriedToOwnChild(indiv, family);
 		}
 		System.out.println();	
+	}
+	
+	
+        private static void displayErrorsOfFamiliesIndividuals(ArrayList<Individual> indiv, ArrayList<Family> fly) {
+		Family family;
+                String birthDate = "", husbName = "", wifeName = "";
+		for(int j=0; j< fly.size(); j++){
+			family = new Family();
+			family = fly.get(j);
+                        
+                        if(family.getHusbandId() != null && family.getMarriageDate() != null)
+                        {
+                        birthDate = Individual.getIndividualBirthDateById(family.getHusbandId(), indiv);
+                        husbName = Individual.getIndividualNameById(family.getHusbandId(), indiv);
+                        if(birthDate != null && Utilities.checkMarriageDateBeforeBirthDate(Utilities.convertStringToDate(birthDate), Utilities.convertStringToDate(family.getMarriageDate())))
+                            System.out.println("Marriage date (" + family.getMarriageDate() + ") of" + husbName + "is before birthdate (" + birthDate + ")" );	
+                        }
+                        if(family.getWifeId()!= null && family.getMarriageDate() != null)
+                        {
+                        birthDate = Individual.getIndividualBirthDateById(family.getWifeId(), indiv);
+                        wifeName = Individual.getIndividualNameById(family.getWifeId(), indiv);
+                        if(birthDate != null && Utilities.checkMarriageDateBeforeBirthDate(Utilities.convertStringToDate(birthDate), Utilities.convertStringToDate(family.getMarriageDate())))
+                            System.out.println("Marriage date (" + family.getMarriageDate() + ") of" + wifeName + "is before birthdate (" + birthDate + ")" );	
+                         
+                        }
+                        
+		}
 	}
 }
