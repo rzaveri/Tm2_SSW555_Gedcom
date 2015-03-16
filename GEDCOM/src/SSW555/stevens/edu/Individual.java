@@ -84,4 +84,18 @@ public class Individual
 		}
 		return indivName;
 	}
+	
+	public static String getIndividualSexById(String id, ArrayList<Individual> indiv)
+	{
+		String indivSex = "";
+		for(int i=0; i< indiv.size(); i++){
+			Individual ind = new Individual();
+			ind = indiv.get(i);
+			if(ind.getId().equals(id)){
+				indivSex = ind.getSex();
+				break;
+			}
+		}
+		return indivSex;
+	}
 }
