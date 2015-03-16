@@ -128,12 +128,12 @@ public class Utilities {
                     return false;
     }
     
-    public static boolean checkMarriageDateBeforeBirthDate(Date MarriageDate, Date birthDate)
-    {
-        int compareValue = compareDates(birthDate,MarriageDate);
-                if(compareValue==2)
-                    return true;
-                else
-                    return false;
-    }
+    public static boolean checkMarriageDateBeforeBirthDate(Date birthDate, Date MarriageDate)
+        {
+            int compareValue = compareDates(birthDate,MarriageDate);
+                    if(compareValue==2)
+                        return true;
+                    else
+                        return false;
+        }
 }
