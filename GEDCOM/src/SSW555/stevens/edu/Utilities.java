@@ -98,6 +98,19 @@ public class Utilities {
 			return false;
 	}
 	
+	/* Returns true if divorce Date before Birth date
+	 * @input: divorce date,birth date
+	 * @output: boolean
+	 */
+	public static boolean checkDivorceDateBeforeBirthDate(Date divorceDate,Date birthDate) {
+		
+		int compareValue = compareDates(divorceDate, birthDate);
+		if(compareValue == 1)
+			return true;
+		else
+			return false;
+	}
+	
 	public static void checkIfMarriedToOwnChild(ArrayList<Individual> indiv, Family family) {
 		String husbandId, wifeId, childId;
 		ArrayList<String> children;
@@ -136,4 +149,35 @@ public class Utilities {
                     else
                         return false;
         }
+    
+	/* Returns true if Marriage Date after Death date
+	* @input: divorce date
+	* @output: boolean
+	*/
+	public static boolean checkMarriageDateAfterDeathDate(Date marriageDate,Date deathDate) {
+	
+	int compareValue = compareDates(marriageDate, deathDate);
+	if(compareValue == 2)
+		return true;
+	else
+		return false;
+	}
+    
+    /*
+     * Check For marriage to sibling
+     * @input: ChildInFamily,SpouseInFamily
+     * @output: boolean
+     */
+    public static boolean checkMarriageToSibling(ArrayList<String> ChildInFamily,ArrayList<String> SpouseInFamily) {
+   
+    	for(int i=0;i< ChildInFamily.size();i++){
+    		for(int k=0; k< SpouseInFamily.size(); k++){
+    			if(ChildInFamily.get(i).equals(SpouseInFamily.get(k)))
+    	            return true;
+    			else
+    	            continue;
+    	    	}
+    		}
+    	return false;
+    }
 }

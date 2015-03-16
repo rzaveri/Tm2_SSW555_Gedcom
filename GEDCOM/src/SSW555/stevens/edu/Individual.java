@@ -112,5 +112,19 @@ public class Individual
 		}
 		return indivBirthDate;
 	}
+	
+	 public static String getIndividualDeathDateById(String id, ArrayList<Individual> indiv)
+	 {
+			String indivDeathDate = "";
+			for(int i=0; i< indiv.size(); i++){
+				Individual ind = new Individual();
+				ind = indiv.get(i);
+				if(ind.getId().equals(id)){
+					indivDeathDate = ind.getDeathDate();
+					break;
+				}
+			}
+			return indivDeathDate;
+	 }
         
 }
