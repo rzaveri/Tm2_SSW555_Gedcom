@@ -54,6 +54,7 @@ public class Main {
             }
             printIndivAndFly(indivList, familyList);
             displayErrors(indivList, familyList);
+            checkSex(indivList,familyList);
             
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + inputFile.toString());
@@ -235,6 +236,43 @@ public class Main {
 		return false;
 	}
 	
+	private static void checkSex(ArrayList<Individual> indiv,ArrayList<Family> fly) {
+		String husbName = "";
+                String wifeName = "";
+                String gender = "";
+                String genderF = "";
+               // CharSequence male = 'M';
+		Family family;
+                
+		System.out.println("---------------------Check Sex for Husband = Male & Wife = Female---------------------");
+		System.out.println();
+		for(int i=0; i< fly.size(); i++){
+			family = new Family();
+			family = fly.get(i);         
+                        if(family.getHusbandId() != null) {
+                        gender = Individual.getIndividualSexById(family.getHusbandId(), indiv);
+                        husbName = Individual.getIndividualNameById(family.getHusbandId(), indiv);
+                        if(gender.equals("M"))
+                            System.out.println(husbName + "is male which is correct");
+                        else
+                            System.out.println(husbName + " shows female which is wrong gender");
+                         } 
+                        
+                        if(family.getWifeId() != null){
+                        gender = Individual.getIndividualSexById(family.getWifeId(), indiv);
+                        wifeName = Individual.getIndividualNameById(family.getWifeId(), indiv);
+                        if(gender.equals("F"))
+                            System.out.println(wifeName + "is female which is correct");
+                        else
+                            System.out.println(wifeName + "shows male which is wrong gender");
+                          }
+                        
+                        
+                        //else
+                           // System.out.println("Wrong gender for husband/wife");
+                }
+	}
+	
 	/*
 	 * Prints Individuals and Families
 	 */
@@ -320,7 +358,7 @@ public class Main {
 		System.out.println("!!!--------------------------- Summary of Errors-------------------------------!!!");
 		System.out.println();	
 		displayErrorsOfIndividuals(indiv);	
-		displayErrorsOfFamilies(fly);
+		displayErrorsOfFamilies(indiv, fly);
 	}
 	
 	private static void displayErrorsOfIndividuals(ArrayList<Individual> indiv) {
@@ -335,11 +373,14 @@ public class Main {
 			
 			//Checks for Death date after Current date
 			if(ind.getDeathDate() != null && Utilities.checkDeathDateAfterCurrentDate(Utilities.convertStringToDate(ind.getDeathDate())))
-				System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Death date (" + ind.getDeathDate() +") after Current date!" );			
+				System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Death date (" + ind.getDeathDate() +") after Current date!" );
+			
+			if(ind.getBirthDate()!=null && ind.getDeathDate() != null && Utilities.checkDeathDateAfterBirthDate(Utilities.convertStringToDate(ind.getBirthDate()),Utilities.convertStringToDate(ind.getDeathDate())))
+                System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Birth date (" + ind.getBirthDate() +") after Death date (" +ind.getDeathDate() +")" );	
 		}
 	}
 	
-	private static void displayErrorsOfFamilies(ArrayList<Family> fly) {
+	private static void displayErrorsOfFamilies(ArrayList<Individual> indiv, ArrayList<Family> fly) {
 		Family family;
 		for(int j=0; j< fly.size(); j++){
 			family = new Family();
@@ -351,8 +392,14 @@ public class Main {
 			
 			//Checks for Divorce date after Current date
 			if(family.getDivorceDate() != null && Utilities.checkDeathDateAfterCurrentDate(Utilities.convertStringToDate(family.getDivorceDate())))
-				System.out.println("Error - Family " + family.getId() + " has Divorce date (" + family.getDivorceDate() +") after Current date!" );	
+				System.out.println("Error - Family " + family.getId() + " has Divorce date (" + family.getDivorceDate() +") after Current date!" );
+			
+			//Checks for Divorce date before Marriage date
+			if(family.getDivorceDate() != null && family.getMarriageDate() != null && Utilities.checkDivorceDateBeforeMarriageDate(Utilities.convertStringToDate(family.getDivorceDate()), Utilities.convertStringToDate(family.getMarriageDate())))
+				System.out.println("Error - Family " + family.getId() + " has Divorce date (" + family.getDivorceDate() +") before Marriage date(" + family.getMarriageDate() +")!" );
+			
+			Utilities.checkIfMarriedToOwnChild(indiv, family);
 		}
+		System.out.println();	
 	}
 }
-
