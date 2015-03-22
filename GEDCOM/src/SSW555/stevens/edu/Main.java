@@ -405,8 +405,7 @@ public class Main {
 				System.out.println("Error - Family " + family.getId() + " has Divorce date (" + family.getDivorceDate() +") before Marriage date(" + family.getMarriageDate() +")!" );
 			
 			Utilities.checkIfMarriedToOwnChild(indiv, family);
-			
-		}
+			}
 		System.out.println();	
 	}
 	
@@ -418,29 +417,30 @@ public class Main {
 			family = new Family();
 			family = fly.get(j);
                         
-                        if(family.getHusbandId() != null && family.getMarriageDate() != null)
+                        if(family.getHusbandId() != null && family.getMarriageDate() != null && !Utilities.checkMissingHusbandWife(family.getHusbandId(), indiv))
                         {
                         birthDate = Individual.getIndividualBirthDateById(family.getHusbandId(), indiv);
                         husbName = Individual.getIndividualNameById(family.getHusbandId(), indiv);
                         if(birthDate != null && Utilities.checkMarriageDateBeforeBirthDate(Utilities.convertStringToDate(birthDate), Utilities.convertStringToDate(family.getMarriageDate())))
                             System.out.println("Marriage date (" + family.getMarriageDate() + ") of" + husbName + "is before birthdate (" + birthDate + ")" );	
                         }
-                        if(family.getWifeId()!= null && family.getMarriageDate() != null)
+                        if(family.getWifeId()!= null && family.getMarriageDate() != null && !Utilities.checkMissingHusbandWife(family.getWifeId(), indiv))
                         {
                         birthDate = Individual.getIndividualBirthDateById(family.getWifeId(), indiv);
                         wifeName = Individual.getIndividualNameById(family.getWifeId(), indiv);
+                        
                         if(birthDate != null && Utilities.checkMarriageDateBeforeBirthDate(Utilities.convertStringToDate(birthDate), Utilities.convertStringToDate(family.getMarriageDate())))
                             System.out.println("Marriage date (" + family.getMarriageDate() + ") of" + wifeName + "is before birthdate (" + birthDate + ")" );	
                          
                         }
-                        if(family.getHusbandId() != null && family.getMarriageDate() != null)
+                        if(family.getHusbandId() != null && family.getMarriageDate() != null && !Utilities.checkMissingHusbandWife(family.getHusbandId(), indiv))
                         {
                         deathDate = Individual.getIndividualDeathDateById(family.getHusbandId(), indiv);
                         husbName = Individual.getIndividualNameById(family.getHusbandId(), indiv);
                         if(deathDate != null && Utilities.checkMarriageDateAfterDeathDate(Utilities.convertStringToDate(family.getMarriageDate()),Utilities.convertStringToDate(deathDate)))
                             System.out.println("Marriage date (" + family.getMarriageDate() + ") of" + husbName + "is before deathdate (" + deathDate + ")" );	
                         }
-                        if(family.getWifeId()!= null && family.getMarriageDate() != null)
+                        if(family.getWifeId()!= null && family.getMarriageDate() != null && !Utilities.checkMissingHusbandWife(family.getWifeId(), indiv))
                         {
                          deathDate = Individual.getIndividualDeathDateById(family.getWifeId(), indiv);
                         wifeName = Individual.getIndividualNameById(family.getWifeId(), indiv);
@@ -449,14 +449,14 @@ public class Main {
                          
                         }
                         
-                        if(family.getHusbandId() != null && family.getDivorceDate() != null)
+                        if(family.getHusbandId() != null && family.getDivorceDate() != null && !Utilities.checkMissingHusbandWife(family.getHusbandId(), indiv))
                         {
                         birthDate = Individual.getIndividualBirthDateById(family.getHusbandId(), indiv);
                         husbName = Individual.getIndividualNameById(family.getHusbandId(), indiv);
                         if(birthDate != null && Utilities.checkDivorceDateBeforeBirthDate( Utilities.convertStringToDate(family.getDivorceDate()),Utilities.convertStringToDate(birthDate)))
                             System.out.println("Divorce date (" + family.getDivorceDate() + ") of" + husbName + "is before birthdate (" + birthDate + ")" );	
                         }
-                        if(family.getWifeId()!= null && family.getDivorceDate() != null)
+                        if(family.getWifeId()!= null && family.getDivorceDate() != null && !Utilities.checkMissingHusbandWife(family.getWifeId(), indiv))
                         {
                          
                         birthDate = Individual.getIndividualBirthDateById(family.getWifeId(), indiv);
@@ -464,7 +464,26 @@ public class Main {
                         if(birthDate != null && Utilities.checkDivorceDateBeforeBirthDate(Utilities.convertStringToDate(family.getDivorceDate()),Utilities.convertStringToDate(birthDate)))
                             System.out.println("Divorce date (" + family.getDivorceDate() + ") of" + wifeName + "is before birthdate (" + birthDate + ")" );	
                         }
-                       
-		}
+                        
+                        //To check for missing husband
+                        if(family.getHusbandId() != null && Utilities.checkMissingHusbandWife(family.getHusbandId(), indiv))
+                        {
+                               System.out.println("Error - Family " + family.getId() +"has missing husband");	
+                        }
+                        
+                        //To check for missing wife
+                        if(family.getWifeId()!= null && Utilities.checkMissingHusbandWife(family.getWifeId(), indiv))
+                        {                         
+                        	System.out.println("Error - Family " + family.getId() +"has missing wife");	
+                        }
+                        
+                        //To check for marriage with himself/herself
+                    	if(family.getHusbandId() != null && family.getWifeId()!= null){
+            				if(family.getHusbandId().equals(family.getWifeId())){
+            					wifeName = Individual.getIndividualNameById(family.getWifeId(), indiv);
+            					System.out.println("Error - In Family " + family.getId() + wifeName +" has marrige with himself/herself");
+            				}
+            			}
+      		}
 	}
 }

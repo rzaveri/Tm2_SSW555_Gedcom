@@ -38,19 +38,13 @@
  1 BIRT
   2 DATE 18 MAR 1988
  1 FAMC @F2@
- 1 FAMS @F4@
+ 1 FAMS @F2@
  1 FAMS @F5@
 0 @I7@ INDI
  1 NAME Sarojini /Chikkaswamy/
  1 SEX F
  1 BIRT
   2 DATE 14 NOV 1988
- 1 FAMS @F3@
-0 @I8@ INDI
- 1 NAME Chikkaswamy /BM/
- 1 SEX M
- 1 BIRT
-  2 DATE 6 DEC 1932
  1 FAMS @F3@
 0 NOTE I10 has Death date before Marriage date
 0 @I9@ INDI
@@ -118,4 +112,7 @@
  1 WIFE @I6@
  1 CHIL @I12@
  1 CHIL @I6@
+0 @F6@ FAM
+ 1 HUSB @I5@
+ 1 WIFE @I5@
 0 TRLR
