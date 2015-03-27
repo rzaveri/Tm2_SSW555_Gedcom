@@ -196,4 +196,111 @@ public class Utilities {
    		}
    		return true;
    	}
+   	
+    /*
+     * Returns true if individual is married to multiple people at the same time
+     */
+    public static boolean checkIfMarriedToMultiplePeople(Individual ind, ArrayList<String> spouseInFamily) {
+    	String familyId;
+    	Family fly;
+    	int currentSpouseCount = 0;
+    	String spouseId = null;
+    	Individual spouse;
+    	
+    	if(spouseInFamily.size() > 1) {
+    		for(int i =0; i< spouseInFamily.size(); i++) {
+    			familyId = spouseInFamily.get(i);
+    			fly = getFamilyById(familyId, Main.familyList);
+    			if(fly != null) {
+    				if (ind.getSex().equals("M"))
+    					spouseId = fly.getWifeId();
+    				if(ind.getSex().equals("F"))
+    					spouseId = fly.getHusbandId();
+    				if(spouseId != null) {
+    					spouse = getIndividualById(spouseId, Main.indivList);
+    					//increase currentSpouseCount by one if spouse is not dead or divorced with the individual
+	    				if(spouse.getDeathDate() == null && fly.getDivorceDate() == null ) {
+	    					currentSpouseCount += 1;
+	    				}
+    				}
+    			}
+    		}
+    		if (currentSpouseCount > 1) 
+    			return true;
+    	}
+    return false;	
+    }
+    
+    /*
+	 * Get Individual by ID
+	 */
+	public static Individual getIndividualById(String id, ArrayList<Individual> indiv)
+	{
+		Individual individual = null;
+		for(int i=0; i< indiv.size(); i++){
+			individual = new Individual();
+			individual = indiv.get(i);
+			if(individual.getId().equals(id)){
+				return individual;
+			}
+		}
+		return individual;
+	}
+	
+	/*
+	 * Get Family by ID
+	 */
+	public static Family getFamilyById(String id, ArrayList<Family> family)
+	{
+		Family fly = null;
+		for(int i=0; i< family.size(); i++){
+			fly = new Family();
+			fly = family.get(i);
+			if(fly.getId().equals(id)){
+				return fly;
+			}
+		}
+		return fly;
+	}
+	
+	/*
+	 * Get spouse list of an individual
+	 */
+	public static ArrayList<Individual> getSpousesOfIndividual(Individual ind, ArrayList<String> spouseInFamily){
+		String familyId;
+    	Family fly;
+    	String spouseId = null;
+    	Individual spouse = null;	
+    	ArrayList<Individual> spouseList = new ArrayList<Individual>();	;		
+    		for(int i =0; i< spouseInFamily.size(); i++) {
+    			familyId = spouseInFamily.get(i);
+    			fly = getFamilyById(familyId, Main.familyList);
+    			if(fly != null) {
+    				if (ind.getSex().equals("M"))
+    					spouseId = fly.getWifeId();
+    				if(ind.getSex().equals("F"))
+    					spouseId = fly.getHusbandId();
+    				if(spouseId != null) 
+    					spouse = getIndividualById(spouseId, Main.indivList);
+    				if(spouse != null)
+    					spouseList.add(spouse);   							    				
+    			}
+    		}
+    	return spouseList;
+	}
+	
+	/*
+	 * Return true if an individual is widow or widower
+	 */
+	public static boolean checkIfWidowOrWidower(Individual ind, ArrayList<String> spouseInFamily) {
+		//get all spouses and check if they all have death date
+		ArrayList<Individual> spouseList = new ArrayList<Individual>();
+		spouseList = getSpousesOfIndividual(ind, spouseInFamily);
+		Boolean widowFlag = true;
+		for (int i=0; i< spouseList.size(); i++) {
+			if(spouseList.get(i).getDeathDate() == null )
+				widowFlag = false;
+		}
+		return widowFlag;
+	}	
 }

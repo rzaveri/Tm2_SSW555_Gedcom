@@ -243,7 +243,7 @@ public class Main {
                 //String genderF = "";
                // CharSequence male = 'M';
 		Family family;
-                
+		System.out.println();
 		System.out.println("---------------------Check Sex for Husband = Male & Wife = Female---------------------");
 		System.out.println();
 		for(int i=0; i< fly.size(); i++){
@@ -383,7 +383,18 @@ public class Main {
 			if(ind.getChildInFamily() != null && ind.getSpouseInFamily() != null && Utilities.checkMarriageToSibling(ind.getChildInFamily(), ind.getSpouseInFamily())){
 				System.out.println("Error - Individual" + ind.getId() + " (" + ind.getName() +") is married to sibling");
 			}
+			
+			//check if married to more than one individual at the same time
+			if(ind.getSpouseInFamily() != null && Utilities.checkIfMarriedToMultiplePeople(ind, ind.getSpouseInFamily())) {
+				System.out.println("Error - Individual" + ind.getId() + " (" + ind.getName() +") is married to multiple people at the same time");
+			}
+			
+			//check if widow or widower who is alive
+			if(ind.getSpouseInFamily() != null && ind.getDeathDate() == null && Utilities.checkIfWidowOrWidower(ind, ind.getSpouseInFamily())) {
+				System.out.println("Error - Individual" + ind.getId() + " (" + ind.getName() +") is a widow/widower");
+			}	
 		}
+		System.out.println();
 	}
 	
 	private static void displayErrorsOfFamilies(ArrayList<Individual> indiv, ArrayList<Family> fly) {
