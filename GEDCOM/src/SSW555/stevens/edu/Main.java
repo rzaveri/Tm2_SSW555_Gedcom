@@ -21,13 +21,17 @@ public class Main {
     private static String tag = "";
 	private static String arguments = "";
 	
+	public static ArrayList<Individual> indivList;
+	public static ArrayList<Family> familyList;
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String inputDirectory=System.getProperty("user.dir");
 		File inputFile = new File(inputDirectory +"/input.ged");
 				
-		ArrayList<Individual> indivList = new ArrayList<Individual>();
-		ArrayList<Family> familyList = new ArrayList<Family>();
+		indivList = new ArrayList<Individual>();
+		familyList = new ArrayList<Family>();
 		
 		BufferedReader br = null;
         try {
