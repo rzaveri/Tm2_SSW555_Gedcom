@@ -180,22 +180,6 @@ public class Utilities {
     		}
     	return false;
     }
-    /*
-   	 * Check for husband or wife missing in family tree
-   	 * @input String id,individual list
-   	 * @output boolean 
-   	 */
-   	public static boolean checkMissingHusbandWife(String id, ArrayList<Individual> indiv)
-   	{
-   		for(int i=0; i< indiv.size(); i++){
-   			Individual ind = new Individual();
-   			ind = indiv.get(i);
-   			if(ind.getId().equals(id)){
-   				return false;
-   			}
-   		}
-   		return true;
-   	}
    	
     /*
      * Returns true if individual is married to multiple people at the same time
