@@ -351,7 +351,7 @@ public class Main {
 				ArrayList<String> childrenInFamilies = family.getChildren();
 				System.out.print("Children in Family: ");
 				for(int j=0; j< childrenInFamilies.size(); j++)
-					System.out.print(childrenInFamilies.get(j) + "	");
+					System.out.print(childrenInFamilies.get(j) + " ");
 				System.out.println();
 			}
 			System.out.println();
@@ -396,7 +396,11 @@ public class Main {
 			//check if widow or widower who is alive
 			if(ind.getSpouseInFamily() != null && ind.getDeathDate() == null && Utilities.checkIfWidowOrWidower(ind, ind.getSpouseInFamily())) {
 				System.out.println("Error - Individual" + ind.getId() + " (" + ind.getName() +") is a widow/widower");
-			}	
+			}
+                        
+                        if(ind.getSpouseInFamily() != null && Utilities.checkMarriedToDeadPerson(ind, ind.getSpouseInFamily())) {
+				System.out.println("Error - Individual" + ind.getId() + " (" + ind.getName() +") is married to a dead person");
+			}
 		}
 		System.out.println();
 	}
@@ -499,6 +503,23 @@ public class Main {
             					System.out.println("Error - In Family " + family.getId() + wifeName +" has marrige with himself/herself");
             				}
             			}
+                        
+                         int count=0;
+                    if (family.getChildren() != null) {
+				ArrayList<String> childrenInFamilies = family.getChildren();
+				
+				for(int k=0; k< childrenInFamilies.size(); k++){
+                                    count++;
+					//System.out.print(childrenInFamilies.get(k) + "	");
+                                    if(count>10)
+                                    {
+                                        System.out.println("Family " + j + " has more than 10 children; which could possibly an error");
+                                        break;
+                                    }
+                                }
+				//System.out.println("Children in Family: " + count); 
+                                
+                    }
       		}
 	}
 }
