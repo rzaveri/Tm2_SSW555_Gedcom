@@ -302,5 +302,33 @@ public class Utilities {
 				widowFlag = false;
 		}
 		return widowFlag;
-	}	
+	}
+        
+        public static boolean checkMarriedToDeadPerson(Individual ind, ArrayList<String> spouseInFamily) {  
+  	String familyId;
+    	Family fly;
+    	String spouseId = null; 
+    	Individual spouse=null;
+    	int compareValue =0;
+
+    		for(int i =0; i< spouseInFamily.size(); i++) {
+    			familyId = spouseInFamily.get(i);
+    			fly = getFamilyById(familyId, Main.familyList);
+    			if(fly != null) {
+    				if (ind.getSex().equals("M"))
+    					spouseId = fly.getWifeId();
+    				if(ind.getSex().equals("F"))
+    					spouseId = fly.getHusbandId();
+    				if(spouseId != null)
+    					spouse = getIndividualById(spouseId, Main.indivList);
+    				if( spouse != null && fly.getMarriageDate() != null && spouse.getDeathDate() != null ) {
+    					compareValue = compareDates(Utilities.convertStringToDate(spouse.getDeathDate()),Utilities.convertStringToDate(fly.getMarriageDate()));                  
+    				}
+    			}
+    		}
+    		if (compareValue == 1) 
+    			return true;
+    	
+    return false;	
+    }
 }

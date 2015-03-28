@@ -67,6 +67,7 @@ public class Individual
 	public void setId(String id) {
 		this.id = id;
 	}
+	
 
 	/*
 	 * Get the name of the Individual by ID
