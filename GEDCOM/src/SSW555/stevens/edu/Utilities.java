@@ -315,4 +315,27 @@ public class Utilities {
     	
     return false;	
     }
+    public static void listDivorcesRemarried(ArrayList<Individual> indiv){
+    	Individual ind;
+    	System.out.println("---------------------List of Divorces who are re-married---------------------");
+		for(int i=0; i< indiv.size(); i++){
+			ind = new Individual();
+			ind = indiv.get(i);
+			String familyId;
+	    	Family fly;
+	    	Boolean divorce=false;
+	    	ArrayList<String> spouseInFamily=ind.getSpouseInFamily();
+	    	if(spouseInFamily!=null && spouseInFamily.size()>1){
+	      		for(int j =0; j< spouseInFamily.size(); j++) {
+	    			familyId = spouseInFamily.get(j);
+	    			fly = getFamilyById(familyId, Main.familyList);
+	    			if(fly != null && fly.getDivorceDate()!=null) {
+	    				divorce=true;
+	    			}
+	      		}
+	      		if(divorce)
+	      		System.out.println(ind.getId() + " " + ind.getName());
+	    	}
+        }
+    }
 }

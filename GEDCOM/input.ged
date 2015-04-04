@@ -107,6 +107,7 @@
  1 BIRT
   2 DATE 9 MAR 1984
  1 FAMS @F9@
+ 1 FAMS @F12@
 0 @I17@ INDI
  1 NAME Ashwaria /Bacchan/
  1 SEX F
@@ -170,6 +171,7 @@
  1 BIRT
   2 DATE 08 APR 1990
  1 FAMC @F2@
+ 1 FAMS @F12@
 0 NOTE F1 has Marriage date after Current date
 0 @F1@ FAM
  1 HUSB @I2@
@@ -236,8 +238,11 @@
 0 NOTE F9 has a wife missing in the family
 0 @F9@ FAM
  1 HUSB @I16@
+ 1 WIFE @I17@
 1 MARR
   2 DATE 9 MAR 2014
+ 1 DIV
+  2 DATE 29 MAR 2015
 0 @F10@ FAM
  1 HUSB @I18@
  1 WIFE @I19@
@@ -248,4 +253,9 @@
  1 WIFE @I17@
 1 MARR
   2 DATE 9 MAR 2014
+0 @F12@ FAM
+ 1 HUSB @I16@ 
+ 1 WIFE @I26@
+1 MARR
+  2 DATE 2 APR 2015
 0 TRLR

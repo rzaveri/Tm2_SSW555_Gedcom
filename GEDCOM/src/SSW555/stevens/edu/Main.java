@@ -359,6 +359,8 @@ public class Main {
 	}
 
 	public static void displayErrors(ArrayList<Individual> indiv, ArrayList<Family> fly) {
+		Individual.listIndividualUnmarried(indiv);
+		Utilities.listDivorcesRemarried(indiv);
 		System.out.println("!!!--------------------------- Summary of Errors-------------------------------!!!");
 		System.out.println();	
 		displayErrorsOfIndividuals(indiv);	
