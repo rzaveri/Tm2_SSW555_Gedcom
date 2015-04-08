@@ -2,7 +2,7 @@
 0 NOTE I1 has Birth date after Current date
 0 @I1@ INDI
  1 NAME Keerthini /Mahesh/
- 1 SEX M
+ 1 SEX F
  1 BIRT
   2 DATE 18 MAR 1988
  1 FAMC @F2@
@@ -172,6 +172,43 @@
   2 DATE 08 APR 1990
  1 FAMC @F2@
  1 FAMS @F12@
+0 @I27@ INDI
+ 1 NAME Amir /Khan/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 18 MAR 1970
+ 1 FAMS @F13@
+ 1 FAMS @F14@
+0 @I28@ INDI
+ 1 NAME Kiran /Khan/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 18 MAR 1972
+ 1 FAMS @F13@
+0 @I29@ INDI
+ 1 NAME Priyanka /Chopra/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 18 MAR 1865
+ 1 DEAT
+  2 DATE 18 MAR 2015
+ 1 FAMS @F14@
+0 NOTE I30 is a child in families F13 and F14 due to divorce and remarriage of his father
+0 @I30@ INDI
+ 1 NAME Aryan /Khan/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 18 MAR 1991
+ 1 FAMC @F13@
+ 1 FAMC @F14@
+ 1 FAMS @F15@
+0 @I31@ INDI
+ 1 NAME Aditi /Khan/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 18 MAR 1996
+ 1 FAMC @F14@
+ 1 FAMS @F15@
 0 NOTE F1 has Marriage date after Current date
 0 @F1@ FAM
  1 HUSB @I2@
@@ -258,4 +295,23 @@
  1 WIFE @I26@
 1 MARR
   2 DATE 2 APR 2015
+0 @F13@ FAM
+ 1 HUSB @I27@
+ 1 WIFE @I28@
+ 1 CHIL @I30@
+ 1 MARR
+  2 DATE 28 NOV 1990
+ 1 DIV
+  2 DATE 28 NOV 1992
+0 @F14@ FAM
+ 1 HUSB @I27@
+ 1 WIFE @I29@
+ 1 CHIL @I31@
+ 1 MARR
+  2 DATE 28 NOV 1995
+0 @F15@ FAM
+ 1 HUSB @I30@
+ 1 WIFE @I31@
+ 1 MARR
+  2 DATE 28 NOV 2014
 0 TRLR

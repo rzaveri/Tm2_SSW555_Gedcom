@@ -382,27 +382,40 @@ public class Main {
 			if(ind.getDeathDate() != null && Utilities.checkDeathDateAfterCurrentDate(Utilities.convertStringToDate(ind.getDeathDate())))
 				System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Death date (" + ind.getDeathDate() +") after Current date!" );
 			
+			//Checks for Death date after Birth date
 			if(ind.getBirthDate()!=null && ind.getDeathDate() != null && Utilities.checkDeathDateAfterBirthDate(Utilities.convertStringToDate(ind.getBirthDate()),Utilities.convertStringToDate(ind.getDeathDate())))
                 System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Birth date (" + ind.getBirthDate() +") after Death date (" +ind.getDeathDate() +")" );
 			
 			//check for Marriage to sibling
 			if(ind.getChildInFamily() != null && ind.getSpouseInFamily() != null && Utilities.checkMarriageToSibling(ind.getChildInFamily(), ind.getSpouseInFamily())){
-				System.out.println("Error - Individual" + ind.getId() + " (" + ind.getName() +") is married to sibling");
+				System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() +") is married to sibling");
 			}
 			
 			//check if married to more than one individual at the same time
 			if(ind.getSpouseInFamily() != null && Utilities.checkIfMarriedToMultiplePeople(ind, ind.getSpouseInFamily())) {
-				System.out.println("Error - Individual" + ind.getId() + " (" + ind.getName() +") is married to multiple people at the same time");
+				System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() +") is married to multiple people at the same time");
 			}
 			
 			//check if widow or widower who is alive
 			if(ind.getSpouseInFamily() != null && ind.getDeathDate() == null && Utilities.checkIfWidowOrWidower(ind, ind.getSpouseInFamily())) {
-				System.out.println("Error - Individual" + ind.getId() + " (" + ind.getName() +") is a widow/widower");
+				System.out.println("Individual " + ind.getId() + " (" + ind.getName() +") is a widow/widower");
 			}
                         
-                        if(ind.getSpouseInFamily() != null && Utilities.checkMarriedToDeadPerson(ind, ind.getSpouseInFamily())) {
-				System.out.println("Error - Individual" + ind.getId() + " (" + ind.getName() +") is married to a dead person");
+			//check if married to a dead person
+            if(ind.getSpouseInFamily() != null && Utilities.checkMarriedToDeadPerson(ind, ind.getSpouseInFamily())) {
+				System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() +") is married to a dead person");
 			}
+                        
+            //check if individual is married to step sibling
+            if(ind.getSpouseInFamily() != null && ind.getChildInFamily() !=null && Utilities.listIndivMarriedToStepSibling(ind, ind.getSpouseInFamily(), ind.getChildInFamily())) {
+            	System.out.println("Individual " + ind.getId() + " (" + ind.getName() +") is married to step sibling");
+            }
+            
+            //Error - Individual's death date is not less than 150 years after birth date
+            if(ind.getBirthDate() != null && ind.getDeathDate() != null && Utilities.checkIfDeath150YearsAfterBirth(Utilities.convertStringToDate(ind.getBirthDate()),Utilities.convertStringToDate(ind.getDeathDate()))) {
+            	System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Death date (" +ind.getDeathDate() + " ) which is not less than 150 years after Birth date (" + ind.getBirthDate() +") " );
+            }
+            
 		}
 		System.out.println();
 	}

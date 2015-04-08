@@ -2,6 +2,7 @@ package SSW555.stevens.edu;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Utilities {
@@ -315,6 +316,7 @@ public class Utilities {
     	
     return false;	
     }
+        
     public static void listDivorcesRemarried(ArrayList<Individual> indiv){
     	Individual ind;
     	System.out.println("---------------------List of Divorces who are re-married---------------------");
@@ -337,5 +339,45 @@ public class Utilities {
 	      		System.out.println(ind.getId() + " " + ind.getName());
 	    	}
         }
+    }
+    
+    /*
+	 * Return true if an individual is married to step sibling
+	 */
+    public static boolean listIndivMarriedToStepSibling(Individual ind, ArrayList<String> spouseInFamily, ArrayList<String> childInFamily) {   	
+    	ArrayList<Individual> spouseList = new ArrayList<Individual>();
+    	spouseList = getSpousesOfIndividual(ind, spouseInFamily); 	//Get Spouse of individual
+    	
+    	ArrayList<String> spouseChildList = new ArrayList<String>() ; 
+    	for (int i=0; i< spouseList.size(); i++) {
+    		if(spouseList.get(i).getChildInFamily() != null)	//get families where spouse is a child 
+    			spouseChildList = spouseList.get(i).getChildInFamily() ;
+    		
+    		for(int j = 0; j < spouseChildList.size(); j++) {
+    			for (int k=0; k < childInFamily.size(); k++) {
+    				if(spouseChildList.get(j).equals(childInFamily.get(k)))		//Compare if they have common families were individual and spouse are child
+    						return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
+    /*
+   	Returns true if individual's death date is not less than 150 years after birth date
+    */
+    public static boolean checkIfDeath150YearsAfterBirth(Date birthDate, Date deathDate) {
+    	 Date dateAfter150YrsOfBirth; 
+    			 
+    	 Calendar cal = Calendar.getInstance(); 
+    	 cal.setTime(birthDate); 
+    	 cal.add(Calendar.YEAR, 150);
+    	 dateAfter150YrsOfBirth = cal.getTime();
+    	 
+    	 int compareValue = compareDates(dateAfter150YrsOfBirth, deathDate);
+         if(compareValue == 1 || compareValue == 0)
+             return true;
+         else
+             return false;
     }
 }
