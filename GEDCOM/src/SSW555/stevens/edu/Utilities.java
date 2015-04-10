@@ -364,10 +364,15 @@ public class Utilities {
     	//compareValueSpouse = compareDates(Utilities.convertStringToDate(deathDateHusband),Utilities.convertStringToDate(fly.getDivorceDate()));                  
         compareValueIndiv = compareDates(Utilities.convertStringToDate(deathDateWife),Utilities.convertStringToDate(fly.getDivorceDate()));                  
         }
-        if(compareValueSpouse == 1 || compareValueIndiv == 1)
+        if(compareValueSpouse == 1)
         {
-            System.out.println("Error - Either Husband has death date (" + deathDateHusband + ") before their divorce date (" + fly.getDivorceDate() + ") or/and Wife has death date (" + deathDateWife + ") before divorce date (" + fly.getDivorceDate() + ")");
+            System.out.println("Error - In Family "+ fly.getId() + "Husband " + husbName + " has death date (" + deathDateHusband + ") before his divorce date (" + fly.getDivorceDate()+")");
+            
             //System.out.println("Error - Husband " + husbName + " or Wife " + wifeName + " have death before their divorce (" + fly.getDivorceDate() + ")");
+        }
+        if(compareValueIndiv == 1)
+        {
+            System.out.println("Error - In Family "+ fly.getId() + "Wife " + wifeName + " has death date (" + deathDateWife + ") before her divorce date (" + fly.getDivorceDate()+")");
         }
         
     	
