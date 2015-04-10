@@ -2,7 +2,7 @@
 0 NOTE I1 has Birth date after Current date
 0 @I1@ INDI
  1 NAME Keerthini /Mahesh/
- 1 SEX M
+ 1 SEX F
  1 BIRT
   2 DATE 18 MAR 1988
  1 FAMC @F2@
@@ -107,12 +107,108 @@
  1 BIRT
   2 DATE 9 MAR 1984
  1 FAMS @F9@
+ 1 FAMS @F12@
 0 @I17@ INDI
  1 NAME Ashwaria /Bacchan/
  1 SEX F
  1 BIRT
   2 DATE 9 MAR 1984
+ 1 FAMC @F2@
  1 FAMS @F9@
+0 @I18@ INDI
+ 1 NAME Ritesh /Desh/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 10 APR 1989
+ 1 FAMS @F10@
+0 @I19@ INDI
+ 1 NAME Genelia /Desh/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 19 APR 1986
+ 1 DEAT
+  2 DATE 20 SEP 2005
+ 1 FAMS @F10@
+0 @I20@ INDI
+ 1 NAME Ritesh /Desh/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 10 APR 1989
+ 1 FAMC @F2@
+0 @I21@ INDI
+ 1 NAME Sonam /Kapoor/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 08 APR 1985
+ 1 FAMC @F2@
+0 @I22@ INDI
+ 1 NAME Moon /Kapoor/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 08 Jun 1986
+ 1 FAMC @F2@
+0 @I23@ INDI
+ 1 NAME Arjun /Kapoor/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 09 JUL 1987
+ 1 FAMC @F2@
+0 @I24@ INDI
+ 1 NAME Abhay /Kapoor/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 08 AUG 1988
+ 1 FAMC @F2@
+0 @I25@ INDI
+ 1 NAME Ranbeer /Kapoor/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 06 SEP 1989
+ 1 FAMC @F2@
+0 @I26@ INDI
+ 1 NAME Rima /Kapoor/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 08 APR 1990
+ 1 FAMC @F2@
+ 1 FAMS @F12@
+0 @I27@ INDI
+ 1 NAME Amir /Khan/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 18 MAR 1970
+ 1 FAMS @F13@
+ 1 FAMS @F14@
+0 @I28@ INDI
+ 1 NAME Kiran /Khan/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 18 MAR 1972
+ 1 FAMS @F13@
+0 @I29@ INDI
+ 1 NAME Priyanka /Chopra/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 18 MAR 1865
+ 1 DEAT
+  2 DATE 18 MAR 2015
+ 1 FAMS @F14@
+0 NOTE I30 is a child in families F13 and F14 due to divorce and remarriage of his father
+0 @I30@ INDI
+ 1 NAME Aryan /Khan/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 18 MAR 1991
+ 1 FAMC @F13@
+ 1 FAMC @F14@
+ 1 FAMS @F15@
+0 @I31@ INDI
+ 1 NAME Aditi /Khan/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 18 MAR 1996
+ 1 FAMC @F14@
+ 1 FAMS @F15@
 0 NOTE F1 has Marriage date after Current date
 0 @F1@ FAM
  1 HUSB @I2@
@@ -126,8 +222,8 @@
  1 CHIL @I1@
  1 CHIL @I5@
  1 CHIL @I6@
+ 1 CHIL @I17@
  1 CHIL @I18@
- 1 CHIL @I19@
  1 CHIL @I20@
  1 CHIL @I21@
  1 CHIL @I22@
@@ -135,9 +231,6 @@
  1 CHIL @I24@
  1 CHIL @I25@
  1 CHIL @I26@
- 1 CHIL @I27@
- 1 CHIL @I28@
- 1 CHIL @I29@
 1 DIV
   2 DATE 27 FEB 2016
 0 NOTE F3 has Divorce date before Marriage date
@@ -175,13 +268,50 @@
   2 DATE 27 FEB 2014
 0 NOTE F8 has husband and wife who are siblings
 0 @F8@ FAM
- 1 HUSB @I1@
- 1 WIFE @I5@
+ 1 HUSB @I5@
+ 1 WIFE @I1@
 1 MARR
   2 DATE 27 FEB 2014
 0 NOTE F9 has a wife missing in the family
 0 @F9@ FAM
  1 HUSB @I16@
+ 1 WIFE @I17@
 1 MARR
   2 DATE 9 MAR 2014
+ 1 DIV
+  2 DATE 29 MAR 2015
+0 @F10@ FAM
+ 1 HUSB @I18@
+ 1 WIFE @I19@
+1 MARR
+  2 DATE 27 OCT 2013
+0 @F11@ FAM
+ 1 HUSB @I17@ 
+ 1 WIFE @I17@
+1 MARR
+  2 DATE 9 MAR 2014
+0 @F12@ FAM
+ 1 HUSB @I16@ 
+ 1 WIFE @I26@
+1 MARR
+  2 DATE 2 APR 2015
+0 @F13@ FAM
+ 1 HUSB @I27@
+ 1 WIFE @I28@
+ 1 CHIL @I30@
+ 1 MARR
+  2 DATE 28 NOV 1990
+ 1 DIV
+  2 DATE 28 NOV 1992
+0 @F14@ FAM
+ 1 HUSB @I27@
+ 1 WIFE @I29@
+ 1 CHIL @I31@
+ 1 MARR
+  2 DATE 28 NOV 1995
+0 @F15@ FAM
+ 1 HUSB @I30@
+ 1 WIFE @I31@
+ 1 MARR
+  2 DATE 28 NOV 2014
 0 TRLR
