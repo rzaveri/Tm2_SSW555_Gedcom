@@ -316,10 +316,7 @@ public class Utilities {
     	
     return false;	
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
         
     public static void listDivorcesRemarried(ArrayList<Individual> indiv){
     	Individual ind;
@@ -344,7 +341,6 @@ public class Utilities {
 	    	}
         }
     }
-<<<<<<< HEAD
 
 
     public static void checkDivorceBeforeDeathOfBothSpouses(Family fly) {  
@@ -376,8 +372,6 @@ public class Utilities {
         
     	
     }
-=======
->>>>>>> origin/master
     
     /*
 	 * Return true if an individual is married to step sibling
@@ -418,7 +412,6 @@ public class Utilities {
          else
              return false;
     }
-<<<<<<< HEAD
     
         public static boolean checkParentBirthDateAfterChildBirthDate(Date childBirthDate, Date parentBirthDate)
     {
@@ -428,8 +421,6 @@ public class Utilities {
                 else
                     return false;
     }
-=======
->>>>>>> origin/master
 }
 
 
