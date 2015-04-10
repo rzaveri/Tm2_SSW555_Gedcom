@@ -2,6 +2,7 @@ package SSW555.stevens.edu;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Utilities {
@@ -180,22 +181,6 @@ public class Utilities {
     		}
     	return false;
     }
-    /*
-   	 * Check for husband or wife missing in family tree
-   	 * @input String id,individual list
-   	 * @output boolean 
-   	 */
-   	public static boolean checkMissingHusbandWife(String id, ArrayList<Individual> indiv)
-   	{
-   		for(int i=0; i< indiv.size(); i++){
-   			Individual ind = new Individual();
-   			ind = indiv.get(i);
-   			if(ind.getId().equals(id)){
-   				return false;
-   			}
-   		}
-   		return true;
-   	}
    	
     /*
      * Returns true if individual is married to multiple people at the same time
@@ -331,4 +316,111 @@ public class Utilities {
     	
     return false;	
     }
+
+        
+    public static void listDivorcesRemarried(ArrayList<Individual> indiv){
+    	Individual ind;
+    	System.out.println("---------------------List of Divorces who are re-married---------------------");
+		for(int i=0; i< indiv.size(); i++){
+			ind = new Individual();
+			ind = indiv.get(i);
+			String familyId;
+	    	Family fly;
+	    	Boolean divorce=false;
+	    	ArrayList<String> spouseInFamily=ind.getSpouseInFamily();
+	    	if(spouseInFamily!=null && spouseInFamily.size()>1){
+	      		for(int j =0; j< spouseInFamily.size(); j++) {
+	    			familyId = spouseInFamily.get(j);
+	    			fly = getFamilyById(familyId, Main.familyList);
+	    			if(fly != null && fly.getDivorceDate()!=null) {
+	    				divorce=true;
+	    			}
+	      		}
+	      		if(divorce)
+	      		System.out.println(ind.getId() + " " + ind.getName());
+	    	}
+        }
+    }
+
+
+    public static void checkDivorceBeforeDeathOfBothSpouses(Family fly) {  
+  	
+    	int compareValueSpouse =0,compareValueIndiv=0;
+        String deathDateHusband=null, deathDateWife=null, husbName=null, wifeName=null;
+        Individual husband, wife;
+        husband = getIndividualById(fly.getHusbandId(),Main.indivList);
+        wife = getIndividualById(fly.getWifeId(),Main.indivList);
+        
+        deathDateHusband = husband.getDeathDate();
+        deathDateWife = wife.getDeathDate();
+        husbName = husband.getName();
+        wifeName = wife.getName();
+        if(fly.getDivorceDate() != null && deathDateHusband != null)  {
+    	compareValueSpouse = compareDates(Utilities.convertStringToDate(deathDateHusband),Utilities.convertStringToDate(fly.getDivorceDate()));                  
+        //compareValueIndiv = compareDates(Utilities.convertStringToDate(deathDateWife),Utilities.convertStringToDate(fly.getDivorceDate()));                  
+        }
+        
+        if(fly.getDivorceDate() != null && deathDateWife != null) {
+    	//compareValueSpouse = compareDates(Utilities.convertStringToDate(deathDateHusband),Utilities.convertStringToDate(fly.getDivorceDate()));                  
+        compareValueIndiv = compareDates(Utilities.convertStringToDate(deathDateWife),Utilities.convertStringToDate(fly.getDivorceDate()));                  
+        }
+        if(compareValueSpouse == 1 || compareValueIndiv == 1)
+        {
+            System.out.println("Error - Either Husband has death date (" + deathDateHusband + ") before their divorce date (" + fly.getDivorceDate() + ") or/and Wife has death date (" + deathDateWife + ") before divorce date (" + fly.getDivorceDate() + ")");
+            //System.out.println("Error - Husband " + husbName + " or Wife " + wifeName + " have death before their divorce (" + fly.getDivorceDate() + ")");
+        }
+        
+    	
+    }
+    
+    /*
+	 * Return true if an individual is married to step sibling
+	 */
+    public static boolean listIndivMarriedToStepSibling(Individual ind, ArrayList<String> spouseInFamily, ArrayList<String> childInFamily) {   	
+    	ArrayList<Individual> spouseList = new ArrayList<Individual>();
+    	spouseList = getSpousesOfIndividual(ind, spouseInFamily); 	//Get Spouse of individual
+    	
+    	ArrayList<String> spouseChildList = new ArrayList<String>() ; 
+    	for (int i=0; i< spouseList.size(); i++) {
+    		if(spouseList.get(i).getChildInFamily() != null)	//get families where spouse is a child 
+    			spouseChildList = spouseList.get(i).getChildInFamily() ;
+    		
+    		for(int j = 0; j < spouseChildList.size(); j++) {
+    			for (int k=0; k < childInFamily.size(); k++) {
+    				if(spouseChildList.get(j).equals(childInFamily.get(k)))		//Compare if they have common families were individual and spouse are child
+    						return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
+    /*
+   	Returns true if individual's death date is not less than 150 years after birth date
+    */
+    public static boolean checkIfDeath150YearsAfterBirth(Date birthDate, Date deathDate) {
+    	 Date dateAfter150YrsOfBirth; 
+    			 
+    	 Calendar cal = Calendar.getInstance(); 
+    	 cal.setTime(birthDate); 
+    	 cal.add(Calendar.YEAR, 150);
+    	 dateAfter150YrsOfBirth = cal.getTime();
+    	 
+    	 int compareValue = compareDates(dateAfter150YrsOfBirth, deathDate);
+         if(compareValue == 1 || compareValue == 0)
+             return true;
+         else
+             return false;
+    }
+    
+        public static boolean checkParentBirthDateAfterChildBirthDate(Date childBirthDate, Date parentBirthDate)
+    {
+        int compareValue = compareDates(parentBirthDate,childBirthDate);
+                if(compareValue==2)
+                    return true;
+                else
+                    return false;
+    }
 }
+
+

@@ -127,5 +127,15 @@ public class Individual
 			}
 			return indivDeathDate;
 	 }
-        
+	 public static void listIndividualUnmarried(ArrayList<Individual> indiv)
+	 {
+			System.out.println("---------------------List of Individuals who are not married---------------------");
+			for(int i=0; i< indiv.size(); i++){
+				Individual ind = new Individual();
+				ind = indiv.get(i);
+				if(ind.getSpouseInFamily()==null){
+					System.out.println(ind.getId() + " " + ind.getName());
+				}
+			}
+	 }
 }

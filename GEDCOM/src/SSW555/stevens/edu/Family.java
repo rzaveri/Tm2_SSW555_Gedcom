@@ -48,5 +48,6 @@ public class Family
 	public void setChildren(ArrayList<String> children) {
 		this.children = children;
 	}
+	
 }
 
