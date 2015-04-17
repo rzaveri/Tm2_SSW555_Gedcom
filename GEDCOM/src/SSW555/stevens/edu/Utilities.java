@@ -426,6 +426,99 @@ public class Utilities {
                 else
                     return false;
     }
+        public static int getDifferenceYear(Date oldDate, Date newDate)
+        {
+            Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        if (oldDate.compareTo(newDate) > 0) {
+            c1.setTime(newDate);
+            c2.setTime(oldDate);
+        } else {
+            
+            return 0;
+
+        }
+        int year = 0;
+        int month = 0;
+        int days = 0;
+        boolean doneMonth = false;
+        boolean doneYears = false;
+        while (c1.before(c2)) {
+            //log.debug("Still in Loop");
+            if (!doneYears) {
+                c1.add(Calendar.YEAR, 1);
+                year++;
+            }
+            if (c1.after(c2) || doneYears) {
+                if (!doneYears) {
+                    doneYears = true;
+                    year--;
+                    c1.add(Calendar.YEAR, -1);
+                }   
+                if (!doneMonth) {
+                    c1.add(Calendar.MONTH, 1);
+                    month++;
+                }
+                if (c1.after(c2) || doneMonth) {
+                    if (!doneMonth) {
+                        doneMonth = true;
+                        month--;
+                        c1.add(Calendar.MONTH, -1);
+                    }
+
+                    c1.add(Calendar.DATE, 1);
+                    days++;
+                    if (c1.after(c2)) {
+                        days--;
+                    }
+                    // this will not be executed
+                    if (days == 31 || month==12) {
+                        break;
+                    }
+                }
+            }
+        }
+        //System.out.println(year + " years, " + month + " months, " + days + " days");
+        return year;
+        }
+        public static boolean checkMotherChildBirthDifferenceGreaterThan60(Date childBirthDate, Date motherBirthDate)
+        {
+            int d = getDifferenceYear(childBirthDate,motherBirthDate);
+            if(d==0)
+            {
+                return false;
+            }
+            if(d >= 60)
+            {
+                return true;
+            }
+            if(d < 60)
+            {
+                return false;
+            }
+            return false;
+            
+        }
+        
+        public static boolean checkFatherChildBirthDifferenceGreaterThan80(Date childBirthDate, Date fatherBirthDate)
+        {
+            int d = getDifferenceYear(childBirthDate,fatherBirthDate);
+            if(d==0)
+            {
+                return false;
+            }
+            if(d >= 80)
+            {
+                return true;
+            }
+            if(d < 80)
+            {
+                return false;
+            }
+            return false;
+            
+        }
 }
+
 
 

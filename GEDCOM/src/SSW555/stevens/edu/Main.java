@@ -449,6 +449,33 @@ public class Main {
                                     }                   
                                 }
                         }
+                        if(family.getChildren() != null && family.getHusbandId() != null && family.getWifeId() != null)
+                        {
+                            String birthDateHusband="",birthDateWife="",birthDateChild="",childId="", childName="",wifeName="",husbName="";
+                            birthDateHusband = Individual.getIndividualBirthDateById(family.getHusbandId(), indiv);
+                            birthDateWife = Individual.getIndividualBirthDateById(family.getWifeId(), indiv);
+                            ArrayList<String> childrenInFamilies = family.getChildren();
+                            husbName = Individual.getIndividualNameById(family.getHusbandId(), indiv);
+                            wifeName = Individual.getIndividualNameById(family.getWifeId(), indiv);
+				
+				for(int l=0; l< childrenInFamilies.size(); l++){
+                                    childId = childrenInFamilies.get(l);
+                                    childName = Individual.getIndividualNameById(childId, indiv);
+                                    birthDateChild = Individual.getIndividualBirthDateById(childId, indiv);
+                                    
+                                    //Utilities.checkMotherChildBirthDifferenceLessThan60(Utilities.convertStringToDate(birthDateChild), Utilities.convertStringToDate(birthDateWife));
+                                    if(Utilities.checkMotherChildBirthDifferenceGreaterThan60(Utilities.convertStringToDate(birthDateChild), Utilities.convertStringToDate(birthDateWife)) == true)
+                                    {
+                                        System.out.println("Error - Family - Mother " + wifeName + "has (Birth Date: " + birthDateWife + ") and Child " + childName + " has Birth date ("+ birthDateChild + ") - the age difference is 60 or more which could be an error");
+                                    }
+                                    if(Utilities.checkFatherChildBirthDifferenceGreaterThan80(Utilities.convertStringToDate(birthDateChild), Utilities.convertStringToDate(birthDateHusband)) == true)
+                                    {
+                                        System.out.println("Error - Family - Father " + husbName + "has (Birth Date: " + birthDateHusband + ") and Child " + childName + " has Birth date ("+ birthDateChild + ") - the age difference is 80 or more which could be an error");
+                                    }
+                                    
+                                                   
+                                }
+                        }
 			//Checks for Marriage date after Current date
 			if(family.getMarriageDate() != null && Utilities.checkMarriageDateAfterCurrentDate(Utilities.convertStringToDate(family.getMarriageDate())))
 				System.out.println("Error - Family " + family.getId() + " has Marriage date (" + family.getMarriageDate() +") after Current date!" );
