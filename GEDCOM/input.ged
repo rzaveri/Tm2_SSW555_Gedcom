@@ -130,7 +130,7 @@
   2 DATE 20 SEP 2005
  1 FAMS @F10@
 0 @I20@ INDI
- 1 NAME Ritesh /Desh/
+ 1 NAME Hitesh /Desh/
  1 SEX M
  1 BIRT
   2 DATE 10 APR 1989
@@ -157,13 +157,14 @@
  1 NAME Abhay /Kapoor/
  1 SEX M
  1 BIRT
-  2 DATE 08 AUG 1988
+  2 DATE 08 DEC 1987
  1 FAMC @F2@
+0 NOTE I25 is born 150 years before current date and is still alive as per records
 0 @I25@ INDI
  1 NAME Ranbeer /Kapoor/
  1 SEX M
  1 BIRT
-  2 DATE 06 SEP 1989
+  2 DATE 06 SEP 1864
  1 FAMC @F2@
 0 @I26@ INDI
  1 NAME Rima /Kapoor/
@@ -198,17 +199,36 @@
  1 NAME Aryan /Khan/
  1 SEX M
  1 BIRT
-  2 DATE 18 MAR 1991
+  2 DATE 18 MAR 2091
  1 FAMC @F13@
  1 FAMC @F14@
  1 FAMS @F15@
+0 NOTE I31 is born after mothers death date
 0 @I31@ INDI
  1 NAME Aditi /Khan/
  1 SEX F
  1 BIRT
-  2 DATE 18 MAR 1996
+  2 DATE 12 APR 2015
  1 FAMC @F14@
  1 FAMS @F15@
+0 @I32@ INDI
+ 1 NAME Ness /Wadia/
+ 1 SEX M
+ 1 BIRT
+  2 DATE 18 MAR 1996
+ 1 DEAT
+  2 DATE 18 MAR 2009
+ 1 FAMC @F3@
+ 1 FAMS @F16@
+0 @I33@ INDI
+ 1 NAME Priti /Zinta/
+ 1 SEX F
+ 1 BIRT
+  2 DATE 18 MAR 1997
+ 1 DEAT
+ 2 DATE 18 MAR 2000
+ 1 FAMC @F4@
+ 1 FAMS @F16@
 0 NOTE F1 has Marriage date after Current date
 0 @F1@ FAM
  1 HUSB @I2@
@@ -239,6 +259,7 @@
  1 HUSB @I8@
  1 CHIL @I3@
  1 CHIL @I14@
+ 1 CHIL @I32@
 1 MARR
   2 DATE 27 FEB 1955
 1 DIV
@@ -247,6 +268,7 @@
  1 WIFE @I6@
  1 HUSB @I9@
  1 CHIL @I10@
+ 1 CHIL @I33@
  1 MARR
   2 DATE 28 DEC 2009
 0 NOTE F5 has a wife who is a child in the family
@@ -314,4 +336,11 @@
  1 WIFE @I31@
  1 MARR
   2 DATE 28 NOV 2014
+0 @F16@ FAM
+ 1 HUSB @I32@
+ 1 WIFE @I33@
+ 1 MARR
+  2 DATE 14 JAN 2000
+ 1 DIV
+  2 DATE 14 JUN 2009
 0 TRLR

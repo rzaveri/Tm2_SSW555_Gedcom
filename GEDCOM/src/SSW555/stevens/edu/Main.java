@@ -416,6 +416,11 @@ public class Main {
             	System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Death date (" +ind.getDeathDate() + " ) which is not less than 150 years after Birth date (" + ind.getBirthDate() +") " );
             }
             
+            //Error - Individual's birth date is 150 years before current date and is still alive according to records
+            if(ind.getBirthDate() != null && ind.getDeathDate() == null && Utilities.checkIfCurrentDate150YearsAfterBirth(Utilities.convertStringToDate(ind.getBirthDate()))) {
+            	System.out.println("Error - Individual " + ind.getId() + " (" + ind.getName() + ") has Birth date (" + ind.getBirthDate() +") 150 years before current date " );
+            }
+            
 		}
 		System.out.println();
 	}
@@ -489,6 +494,13 @@ public class Main {
 				System.out.println("Error - Family " + family.getId() + " has Divorce date (" + family.getDivorceDate() +") before Marriage date(" + family.getMarriageDate() +")!" );
 			
 			Utilities.checkIfMarriedToOwnChild(indiv, family);
+			
+			//Checks if child born after mother's death
+			if(family.getWifeId() != null && family.getChildren() != null) 
+				Utilities.checkChildBornAfterMothersDeath(Utilities.getIndividualById(family.getWifeId(), indiv), family.getChildren());
+			
+			//Check if siblings are born less than 8 months apart
+			Utilities.checkAgeDifferenceOfSiblings(family.getChildren());
 			}
 		System.out.println();	
 	}
