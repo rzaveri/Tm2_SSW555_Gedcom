@@ -311,7 +311,7 @@ public class Utilities {
     				}
     			}
     		}
-    		if (compareValue == 1) 
+    		if (compareValue == 2) 
     			return true;
     	
     return false;	
@@ -537,7 +537,24 @@ public class Utilities {
              else
                  return false;
         }
-      
+        
+        /*
+       	Returns true if child's birth date is 9 month after father's death
+        */
+        public static boolean checkIfBirthDateAfter9MonthDeath(Date birthDate, Date deathDate) {
+        	 Date dateAfter9months; 
+        			 
+        	 Calendar cal = Calendar.getInstance(); 
+        	 cal.setTime(deathDate); 
+        	 cal.add(Calendar.MONTH,9);
+        	 dateAfter9months = cal.getTime();
+        	 
+        	 int compareValue = compareDates(dateAfter9months, birthDate);
+             if(compareValue == 1)
+                 return true;
+             else
+                 return false;
+        }
         /*
        	Returns true if child's birth date is after mother's death date
         */
@@ -574,6 +591,19 @@ public class Utilities {
     		    	}
     		    }
     	    }
+        }
+        /*
+       	Returns true if child's birth date is after 9 months of father's death date, unless wife re-marry
+        */
+        public static void checkChildBornFathersDeath(Individual father, ArrayList<String> children) {
+        	if( father!= null && children !=null) {
+    	    	for(int i=0; i < children.size(); i++) {
+    	    		Individual child = getIndividualById(children.get(i), Main.indivList);
+    	    		if(father.getDeathDate() != null && child.getBirthDate() != null && checkIfBirthDateAfter9MonthDeath(convertStringToDate(child.getBirthDate()),convertStringToDate(father.getDeathDate()))) {
+    		    		System.out.println("Error - Child " + child.getId() + " (" + child.getName() + ") has birth date (" + child.getBirthDate() + ") 9 months after father "  + father.getName() + " death date (" + father.getDeathDate() + ") ");
+ 	   	    		}
+    	    	}
+        	}
         }
 }
 
