@@ -311,7 +311,7 @@ public class Utilities {
     				}
     			}
     		}
-    		if (compareValue == 1) 
+    		if (compareValue == 2) 
     			return true;
     	
     return false;	
@@ -418,22 +418,22 @@ public class Utilities {
              return false;
     }
     
-        public static boolean checkParentBirthDateAfterChildBirthDate(Date childBirthDate, Date parentBirthDate)
-    {
+    public static boolean checkParentBirthDateAfterChildBirthDate(Date childBirthDate, Date parentBirthDate) {
         int compareValue = compareDates(parentBirthDate,childBirthDate);
                 if(compareValue==2)
                     return true;
                 else
                     return false;
     }
-        public static int getDifferenceYear(Date oldDate, Date newDate)
-        {
-            Calendar c1 = Calendar.getInstance();
+        
+    public static int getDifferenceYear(Date oldDate, Date newDate) {
+        Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
         if (oldDate.compareTo(newDate) > 0) {
             c1.setTime(newDate);
             c2.setTime(oldDate);
-        } else {
+        } 
+        else {
             
             return 0;
 
@@ -481,6 +481,7 @@ public class Utilities {
         //System.out.println(year + " years, " + month + " months, " + days + " days");
         return year;
         }
+        
         public static boolean checkMotherChildBirthDifferenceGreaterThan60(Date childBirthDate, Date motherBirthDate)
         {
             int d = getDifferenceYear(childBirthDate,motherBirthDate);
@@ -517,6 +518,92 @@ public class Utilities {
             }
             return false;
             
+        }
+        
+        /*
+    	Returns true if current date is not less than 150 years after birth date
+        */
+        public static boolean checkIfCurrentDate150YearsAfterBirth(Date birthDate) {
+        	 Date dateAfter150YrsOfBirth; 
+        	 Date currentDate = new Date();
+        	 Calendar cal = Calendar.getInstance(); 
+        	 cal.setTime(birthDate); 
+        	 cal.add(Calendar.YEAR, 150);
+        	 dateAfter150YrsOfBirth = cal.getTime();
+        	 
+        	 int compareValue = compareDates(dateAfter150YrsOfBirth, currentDate);
+             if(compareValue == 1 || compareValue == 0)
+                 return true;
+             else
+                 return false;
+        }
+        
+        /*
+       	Returns true if child's birth date is 9 month after father's death
+        */
+        public static boolean checkIfBirthDateAfter9MonthDeath(Date birthDate, Date deathDate) {
+        	 Date dateAfter9months; 
+        			 
+        	 Calendar cal = Calendar.getInstance(); 
+        	 cal.setTime(deathDate); 
+        	 cal.add(Calendar.MONTH,9);
+        	 dateAfter9months = cal.getTime();
+        	 
+        	 int compareValue = compareDates(dateAfter9months, birthDate);
+             if(compareValue == 1)
+                 return true;
+             else
+                 return false;
+        }
+        /*
+       	Returns true if child's birth date is after mother's death date
+        */
+        public static void checkChildBornAfterMothersDeath(Individual mother, ArrayList<String> children) {
+        	if( mother!= null && children !=null) {
+    	    	for(int i=0; i < children.size(); i++) {
+    	    		Individual child = getIndividualById(children.get(i), Main.indivList);
+    	    		if(mother.getDeathDate() != null && child.getBirthDate() != null) {
+    		    		int compareValue = compareDates(convertStringToDate(child.getBirthDate()), convertStringToDate(mother.getDeathDate()));
+    		    		if(compareValue == 2) {
+    		    			System.out.println("Error - Child " + child.getId() + " (" + child.getName() + ") has birth date (" + child.getBirthDate() + ") after mother "  + mother.getName() + " death date (" + mother.getDeathDate() + ") ");
+    		    		}    	
+    	    		}
+    	    	}
+        	}
+        }
+        
+        // Checks if age difference of siblings is less than 8 months apart
+        public static void checkAgeDifferenceOfSiblings(ArrayList<String> children) {
+        	if(children !=null) {
+    		    for(int i = 0; i < children.size(); i++) {
+    		    	Individual childToCompare = getIndividualById(children.get(i), Main.indivList);
+    		    	for (int j= i + 1; j < children.size(); j++) {
+    		    		Individual sibling = getIndividualById(children.get(j), Main.indivList);
+    		    		if(childToCompare.getBirthDate()!= null && sibling.getBirthDate() != null) {
+    		    	    	Date childToCompareBirthDate = convertStringToDate(childToCompare.getBirthDate());
+    		    	    	Date siblingBirthDate = convertStringToDate(sibling.getBirthDate());
+    		    	    	if(!childToCompareBirthDate.equals(siblingBirthDate)) { //Ignore multiple births such as twins, triplets etc.
+    		    	         double monthsApart = Math.abs(Math.floor(((childToCompareBirthDate.getTime() - siblingBirthDate.getTime()) / (1000*60*60*24*30.5))));
+    		    	         if (monthsApart < 8) 
+    		    	        	 System.out.println("Error - Siblings " + childToCompare.getId() + " (" + childToCompare.getName() + ", Birth Date: " + childToCompare.getBirthDate() + " ) and " + sibling.getId() + " (" + sibling.getName() + ", Birth Date: " + sibling.getBirthDate() + " )  has birth dates less than 8 months apart  ");
+    		    	    	}
+    		    		}
+    		    	}
+    		    }
+    	    }
+        }
+        /*
+       	Returns true if child's birth date is after 9 months of father's death date, unless wife re-marry
+        */
+        public static void checkChildBornFathersDeath(Individual father, ArrayList<String> children) {
+        	if( father!= null && children !=null) {
+    	    	for(int i=0; i < children.size(); i++) {
+    	    		Individual child = getIndividualById(children.get(i), Main.indivList);
+    	    		if(father.getDeathDate() != null && child.getBirthDate() != null && checkIfBirthDateAfter9MonthDeath(convertStringToDate(child.getBirthDate()),convertStringToDate(father.getDeathDate()))) {
+    		    		System.out.println("Error - Child " + child.getId() + " (" + child.getName() + ") has birth date (" + child.getBirthDate() + ") 9 months after father "  + father.getName() + " death date (" + father.getDeathDate() + ") ");
+ 	   	    		}
+    	    	}
+        	}
         }
 }
 
