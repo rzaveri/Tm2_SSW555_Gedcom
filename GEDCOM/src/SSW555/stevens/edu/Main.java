@@ -518,12 +518,20 @@ public class Main {
                    wifeName = Individual.getIndividualNameById(family.getWifeId(), indiv);
                    if(Utilities.compareDates(birthDateHusband, birthDateWife)==1){
                    	   if(Utilities.getDifferenceYear(birthDateWife,Utilities.convertStringToDate(family.getMarriageDate()))<14){
+<<<<<<< HEAD
                 		   System.out.println("Error - Family " +husbName+" and "+wifeName+ "are marrried before the wife - "+ wifeName+ " becomes 14 yrs old - which probably is an error");
+=======
+                		   System.out.println("Error - Family " +husbName+" and "+wifeName+ "are marrry before"+ wifeName+ "become 14 yrs old");
+>>>>>>> origin/master
                 	   }
                    }
                    else{
                 	   if(Utilities.getDifferenceYear(birthDateHusband,Utilities.convertStringToDate(family.getMarriageDate()))<14){
+<<<<<<< HEAD
                 		   System.out.println("Error - Family " +husbName+" and "+wifeName+ "are marrried before the husband - "+ husbName+ " becomes 14 yrs old - which probably is an error");
+=======
+                		   System.out.println("Error - Family " +husbName+" and "+wifeName+ "are marrry before"+ husbName+ "become 14 yrs old");
+>>>>>>> origin/master
                 	   }
      	          }
                }
